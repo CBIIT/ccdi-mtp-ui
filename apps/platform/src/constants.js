@@ -1,4 +1,8 @@
-import { faBook, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import {
+  // faQuestionCircle,
+  faBook,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   faDiscourse,
   faTwitterSquare,
@@ -10,6 +14,11 @@ import config from './config';
 
 export const externalLinks = {
   about: [
+    // {
+    //   label: `Platform version ${process.env.REACT_APP_REVISION ?? 'dev'}`,
+    //   url: `https://github.com/opentargets/platform-app/releases/tag/${process
+    //     .env.REACT_APP_REVISION ?? 'v0.1.1'}`,
+    // },
     {
       label: 'Community forum',
       url: 'https://community.opentargets.org',
@@ -28,14 +37,13 @@ export const externalLinks = {
   network: [
     { label: 'Science', url: 'https://www.opentargets.org/science' },
     { label: 'Publications', url: 'https://www.opentargets.org/publications' },
-    { label: 'Open Targets Genetics', url: 'https://genetics.opentargets.org' },
+    { label: 'Genetics Portal', url: 'https://genetics.opentargets.org' },
     { label: 'Jobs', url: 'https://www.opentargets.org/jobs' },
     { label: 'Blog', url: 'https://blog.opentargets.org' },
   ],
   partners: [
     { label: 'Bristol Myers Squibb', url: 'https://www.bms.com' },
     { label: 'EMBL-EBI', url: 'https://www.ebi.ac.uk' },
-    { label: 'Genentech', url: 'https://www.gene.com' },
     { label: 'GSK', url: 'https://www.gsk.com' },
     { label: 'Pfizer', url: 'https://pfizer.com' },
     { label: 'Sanofi', url: 'https://www.sanofi.com' },
@@ -54,14 +62,14 @@ export const externalLinks = {
       external: true,
     },
     {
-      label: 'Contact us',
+      label: config.profile.helpdeskEmail,
       icon: faEnvelope,
       url: `mailto: ${config.profile.helpdeskEmail}`,
       external: true,
-      showOnlyPartner: true,
     },
   ],
   social: [
+    // { icon: faDiscourse, url: 'https://community.opentargets.org' },
     { icon: faTwitterSquare, url: 'https://twitter.com/opentargets' },
     { icon: faLinkedin, url: 'https://www.linkedin.com/company/open-targets' },
     { icon: faYoutubeSquare, url: 'https://www.youtube.com/opentargets' },
@@ -76,6 +84,18 @@ export const mainMenuItems = config.profile.mainMenuItems ?? [
     name: 'Documentation',
     url: 'https://platform-docs.opentargets.org/getting-started',
     external: true,
+  },
+  // RMTL Doc
+  {
+    name: 'FDA PMTL Documentation',
+    url: '/mtp-pmtl-docs',
+    external: false,
+  },
+  // FDA RMTL
+  {
+    name: 'FDA PMTL',
+    url: '/fda-pmtl',
+    external: false,
   },
   // Downloads
   {
@@ -95,12 +115,11 @@ export const mainMenuItems = config.profile.mainMenuItems ?? [
     url: 'https://community.opentargets.org/',
     external: true,
   },
-  // Contact - ppp
+  // Contact
   {
     name: 'Contact us',
     url: `mailto:${config.profile.helpdeskEmail}`,
     external: true,
-    showOnlyPartner: true
   },
 ];
 
@@ -216,10 +235,10 @@ export const particlesConfig = {
 };
 
 // App title.
-export const appTitle = 'Open Targets Platform';
+export const appTitle = 'Molecular Targets Platform';
 export const appDescription =
-  'The Open Targets Platform is a data integration tool that supports systematic drug target identification and prioritisation';
-export const appCanonicalUrl = 'https://platform.opentargets.org';
+  'The Molecular Targets Platform is a data integration tool that supports systematic drug target identification and prioritisation';
+export const appCanonicalUrl = 'https://moleculartargets.ccdi.cancer.gov';
 
 // Chunk sizes for server side pagination/download.
 export const tableChunkSize = 100;
@@ -285,4 +304,30 @@ export const studySourceMap = {
   GCST: 'GWAS Catalog',
   SAIGE: 'UK Biobank',
   NEALE: 'UK Biobank',
+};
+
+export const contact = {
+  email: 'ncichildhoodcancerdatainitiative@mail.nih.gov',
+};
+
+export const version = {
+  frontend: config.frontendVersion,
+  frontendURL: 'https://github.com/CBIIT/ppdc-otp-frontend/releases',
+  backend: config.backendVersion,
+  backendURL: 'https://github.com/CBIIT/ppdc-otp-backend/releases',
+  changeLogPage: '/change-log',
+  versionConfigURL: `${config.mtpConfig}/front-end/assets/data/version.json`,
+};
+
+export const mtpPageNames = {
+  // FDA Pediatric Molecular Target Lists
+  fdaPmtlPage: {
+    label: 'FDA Pediatric Molecular Target Lists',
+    url: '/fda-pmtl',
+  },
+  // MTP PMTL Documentation 
+  mtpPmtlDocPage: {
+    label: 'MTP PMTL Documentation',
+    url: '/mtp-pmtl-docs',
+  },
 };

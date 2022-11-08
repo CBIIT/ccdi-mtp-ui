@@ -1,3 +1,6 @@
+// MTP Section imports
+import * as OpenPedCanGeneExpression from '../../sections/evidence/OpenPedCanGeneExpression';
+import * as OpenPedCanSomaticAlterations from '../../sections/evidence/OpenPedCanSomaticAlterations';
 // Section imports
 import * as CancerGeneCensus from '../../sections/evidence/CancerGeneCensus';
 import * as Chembl from '../../sections/evidence/Chembl';
@@ -28,6 +31,8 @@ import * as GeneBurden from '../../sections/evidence/GeneBurden';
 import config from '../../config';
 
 const sections = [
+  OpenPedCanSomaticAlterations,
+  OpenPedCanGeneExpression,
   OTGenetics,
   EVA,
   GeneBurden,
@@ -60,7 +65,7 @@ const sections = [
   // AND
   // 2. only include public section (i.e. not partner sections),
   //    OR also private sections if it's a partner preview
-  (section) =>
+  section =>
     (config.profile.hideEvidenceSectionIds.length === 0 ||
       !config.profile.hideEvidenceSectionIds.includes(section.definition.id)) &&
     (!section.definition.isPrivate ||

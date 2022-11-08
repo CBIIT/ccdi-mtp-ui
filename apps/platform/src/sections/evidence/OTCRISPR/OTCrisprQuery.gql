@@ -24,7 +24,6 @@ query CrisprQuery($ensemblId: String!, $efoId: String!, $size: Int!) {
         diseaseCellLines {
           name
         }
-        releaseVersion
       }
     }
   }

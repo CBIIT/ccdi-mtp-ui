@@ -34,7 +34,6 @@ query ValidationQuery($ensemblId: String!, $efoId: String!, $size: Int!) {
           description
           status
         }
-        releaseVersion
       }
     }
   }
