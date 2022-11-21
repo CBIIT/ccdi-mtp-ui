@@ -14,13 +14,9 @@ import {
   appTitle,
   appDescription,
   appCanonicalUrl,
-  externalLinks,
-  mainMenuItems,
 } from '../../constants';
-import { Footer } from 'ui';
 import HomeBox from './HomeBox';
 import Link from '../../components/Link';
-import NavBar from '../../components/NavBar';
 import Search from '../../components/Search';
 import searchExamples from './searchExamples';
 import Splash from './Splash';
@@ -39,6 +35,9 @@ import {
 
 import config from '../../config';
 import PrivateWrapper from '../../components/PrivateWrapper';
+import ScrollToTop from '../../components/ScrollToTop';
+import NCIHeader from '../../components/NCIHeader';
+import NCIFooter from '../../components/NCIFooter';
 
 const useStyles = makeStyles(theme => ({
   links: {
@@ -127,6 +126,8 @@ const HomePage = () => {
         <meta name="description" content={appDescription} />
         <link rel="canonical" href={appCanonicalUrl} />
       </Helmet>
+      <ScrollToTop />
+      <NCIHeader />
       <Grid
         container
         justifyContent="center"
@@ -134,12 +135,6 @@ const HomePage = () => {
         className={classes.hpSection}
       >
         <Splash />
-        <NavBar
-          name="platform"
-          homepage
-          items={mainMenuItems}
-          placement="bottom-end"
-        />
         <HomeBox>
           <Search autoFocus />
           {/* Search examples */}
@@ -318,7 +313,7 @@ const HomePage = () => {
 
       {/* remove for integration day  */}
       {/* <Stats /> */}
-      <Footer externalLinks={externalLinks} />
+      <NCIFooter />
     </>
   );
 };
