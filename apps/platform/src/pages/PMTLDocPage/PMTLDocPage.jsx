@@ -200,7 +200,7 @@ function PMTLDocPage() {
   }
 
   return (
-    <BasePageMTP title="PMTL Document">
+    <BasePageMTP title="MTP PMTL Documentation">
       <ScrollToTop />
       <div className={classes.root}>
         <Grid container spacing={3}>
