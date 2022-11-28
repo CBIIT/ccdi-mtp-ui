@@ -16,6 +16,10 @@ import TargetPage from './pages/TargetPage';
 import EvidencePage from './pages/EvidencePage';
 import VariantsPage from './pages/VariantsPage';
 import APIPage from './pages/APIPage';
+import PMTLPage from './pages/PMTLPage';
+import PMTLDocPage from './pages/PMTLDocPage/PMTLDocPage';
+import AboutPage from './pages/AboutPage';
+import ChangeLogPage from './pages/ChangeLogPage';
 import NotFoundPage from './pages/NotFoundPage';
 import PlatformApiProvider from './contexts/PlatformApiProvider';
 
@@ -40,6 +44,10 @@ class App extends Component {
                 <Route path="/evidence/:ensgId/:efoId" component={EvidencePage} />
                 <Route path="/variants" component={VariantsPage} />
                 <Route path="/api" component={APIPage} />
+                <Route path="/fda-pmtl" component={PMTLPage} />
+                <Route path="/mtp-pmtl-docs" component={PMTLDocPage} />
+                <Route path="/about" component={AboutPage} />
+                <Route path="/change-log" component={ChangeLogPage} />
                 <Route component={NotFoundPage} />
               </Switch>
             </Router>
