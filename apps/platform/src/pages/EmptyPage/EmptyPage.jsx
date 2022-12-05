@@ -1,16 +1,12 @@
 import React from 'react';
 import { Grid, Typography, withStyles } from '@material-ui/core';
 import {
-  faEnvelope,
   faExclamationTriangle,
-  faQuestionCircle,
-  faSearchPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Link from '../../components/Link';
 import Search from '../../components/Search';
-import config from '../../config';
 
 const styles = theme => ({
   icon: {
@@ -50,47 +46,6 @@ const EmptyPage = ({ classes, children }) => {
           <Link to="/drug/CHEMBL3137343">Keytruda</Link>
         </Grid>
       </Typography>
-      <Typography gutterBottom className={classes.message}>
-        You might also want to ...
-      </Typography>
-      <Grid item container justifyContent="center">
-        <Grid item container direction="column" md={2} alignItems="center">
-          <a href="https://platform-docs.opentargets.org/">
-            <FontAwesomeIcon
-              icon={faQuestionCircle}
-              size="3x"
-              className={classes.icon}
-            />
-          </a>
-          <Typography align="center" className={classes.actionText}>
-            Check out our documentation
-          </Typography>
-        </Grid>
-        <Grid item container direction="column" md={2} alignItems="center">
-          <a href={`mailto:${config.profile.helpdeskEmail}`}>
-            <FontAwesomeIcon
-              icon={faEnvelope}
-              size="3x"
-              className={classes.icon}
-            />
-          </a>
-          <Typography align="center" className={classes.actionText}>
-            Contact the Platform helpdesk
-          </Typography>
-        </Grid>
-        <Grid item container direction="column" md={2} alignItems="center">
-          <a href={`mailto:${config.profile.helpdeskEmail}`}>
-            <FontAwesomeIcon
-              icon={faSearchPlus}
-              size="3x"
-              className={classes.icon}
-            />
-          </a>
-          <Typography align="center" className={classes.actionText}>
-            Suggest a target, disease, or drug
-          </Typography>
-        </Grid>
-      </Grid>
     </Grid>
   );
 };
