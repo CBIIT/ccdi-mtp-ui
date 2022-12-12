@@ -1,3 +1,5 @@
+// MTP Section imports
+import * as OpenPedCanSomaticAlterations from '../../sections/evidence/OpenPedCanSomaticAlterations';
 // Section imports
 import * as CancerGeneCensus from '../../sections/evidence/CancerGeneCensus';
 import * as Chembl from '../../sections/evidence/Chembl';
@@ -28,6 +30,7 @@ import * as GeneBurden from '../../sections/evidence/GeneBurden';
 import config from '../../config';
 
 const sections = [
+  OpenPedCanSomaticAlterations,
   OTGenetics,
   EVA,
   GeneBurden,
