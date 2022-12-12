@@ -20,6 +20,7 @@ import PMTLPage from './pages/PMTLPage';
 import PMTLDocPage from './pages/PMTLDocPage/PMTLDocPage';
 import AboutPage from './pages/AboutPage';
 import ChangeLogPage from './pages/ChangeLogPage';
+import PedCancerDataNavPage from './pages/PedCancerDataNavPage';
 import NotFoundPage from './pages/NotFoundPage';
 import PlatformApiProvider from './contexts/PlatformApiProvider';
 
@@ -48,6 +49,7 @@ class App extends Component {
                 <Route path="/mtp-pmtl-docs" component={PMTLDocPage} />
                 <Route path="/about" component={AboutPage} />
                 <Route path="/change-log" component={ChangeLogPage} />
+                <Route path="/pediatric-cancer-data-navigation" component={PedCancerDataNavPage} />
                 <Route component={NotFoundPage} />
               </Switch>
             </Router>
