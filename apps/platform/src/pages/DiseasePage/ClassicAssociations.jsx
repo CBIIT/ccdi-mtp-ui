@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, Grid, makeStyles, Typography } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 
@@ -65,7 +65,7 @@ function ClassicAssociations({ efoId, name }) {
       <Grid item xs={12} md={8}>
         <Typography variant="h6" align="right">
           {data ? (
-            <Fragment>
+            <>
               <span className={classes.desPCDNText}>
                 Additional pediatric cancer data may be found at:
               </span>
@@ -90,7 +90,7 @@ function ClassicAssociations({ efoId, name }) {
                   </span>
                 </Link>{' '}
               </div>
-            </Fragment>
+            </>
           ) : null }
         </Typography>
       </Grid>

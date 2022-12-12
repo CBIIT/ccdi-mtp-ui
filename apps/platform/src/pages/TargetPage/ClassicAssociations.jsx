@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Switch,
   Route,
@@ -22,7 +22,7 @@ import ClassicAssociationsBubbles from './ClassicAssociationsBubbles';
 import ClassicAssociationsTable from './ClassicAssociationsTable';
 import { Facets } from '../../components/Facets';
 import Wrapper from './Wrapper';
-import cLink from '../../components/Link';
+import RouterLink from '../../components/Link';
 import NavIcon from '../../assets/PediatricDataCancer-MenuBar-Icon.svg';
 
 import TARGET_FACETS_QUERY from './TargetFacets.gql';
@@ -85,12 +85,12 @@ function ClassicAssociations({ ensgId, symbol }) {
       <Grid item xs={12} md={8}>
         <Typography variant="h6" align="right">
           {data ? (
-            <Fragment>
+            <>
               <span className={classes.desPCDNText}>
                 Additional pediatric cancer data may be found at:
               </span>
               <div className={classes.PCDNBox}>
-                <cLink
+                <RouterLink
                   to={{
                     pathname: PCDNUrl,
                     state: {
@@ -108,9 +108,9 @@ function ClassicAssociations({ ensgId, symbol }) {
                   <span className={classes.PCDNText}>
                     Pediatric Cancer Data Navigation
                   </span>
-                </cLink>{' '}
+                </RouterLink>{' '}
               </div>
-            </Fragment>
+            </>
           ) : null}
         </Typography>
       </Grid>
