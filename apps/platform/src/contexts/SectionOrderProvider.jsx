@@ -5,7 +5,7 @@ import usePlatformApi from '../hooks/usePlatformApi';
 
 const SectionOrderContext = React.createContext();
 
-function SectionOrderProvider({ sections, children }) {
+function SectionOrderProvider({ sections, displaySettingsForExternal, children }) {
   const { data, entity, lsSectionsField } = usePlatformApi();
   const [sectionOrder, setSectionOrder] = useState(
     // ls.get(`${lsSectionsField || entity}SectionsOrder`) ||
@@ -18,10 +18,15 @@ function SectionOrderProvider({ sections, children }) {
   };
 
   const shouldRender = section => {
-    const { hasData, external } = section.props.definition;
+    const { hasData, external, id } = section.props.definition;
 
     //TODO: review this.
-    return external || (data && hasData(data?.[entity])) || false;
+    return (
+      (displaySettingsForExternal && displaySettingsForExternal.includes(id)) ||
+      external ||
+      (data && hasData(data?.[entity])) ||
+      false
+    );
   };
 
   return (
