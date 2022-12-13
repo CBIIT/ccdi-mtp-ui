@@ -17,6 +17,7 @@ import {
 import Link from '../../components/Link';
 import { Skeleton } from '@material-ui/lab';
 import usePlatformApi from '../../hooks/usePlatformApi';
+import PMTLPopOver from '../../components/PMTL/PMTLPopover';
 
 const useStyles = makeStyles(theme => ({
   card: { height: '100%' },
@@ -62,6 +63,8 @@ function ProfileHeader() {
 
   const diseaseSynonyms = parseSynonyms(data?.disease.synonyms || []);
 
+  const pmtl = data?.target.pmtl_fda_designation || undefined;
+
   const { id: ensgId, approvedSymbol } = data?.target || {};
 
   const targetSynonyms = data?.target?.synonyms?.reduce(
@@ -90,6 +93,10 @@ function ProfileHeader() {
                 <Link to={`/target/${ensgId}`}>
                   <FontAwesomeIcon icon={faDna} /> {approvedSymbol}
                 </Link>
+                <PMTLPopOver
+                  otherStyle={{ RMTLContainer: { marginLeft: '50px' } }}
+                  pmtl={pmtl}
+                />
               </Typography>
             }
           />

@@ -117,7 +117,7 @@ function PMTLPopOver({ otherStyle, pmtl }) {
         <Grid
           container
           direction="column"
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="stretch"
         >
           <Grid item>
