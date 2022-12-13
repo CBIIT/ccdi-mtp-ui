@@ -32,7 +32,7 @@ function PMTLHelper(fdaDesignationValue) {
 
   return pmtlObj;
 }
-function RMTLPopOver({ otherStyle, pmtl }) {
+function PMTLPopOver({ otherStyle, pmtl }) {
   const useStyles = makeStyles(theme => ({
     rmtlHeaderText: {
       display: 'inline',
@@ -175,4 +175,4 @@ function RMTLPopOver({ otherStyle, pmtl }) {
   );
 }
 
-export default RMTLPopOver;
+export default PMTLPopOver;
