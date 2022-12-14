@@ -10,8 +10,9 @@ import {
   XRefLinks,
 } from '../../components/ExternalLink';
 import HeaderBase from '../../components/Header';
+import PMTLPopOver from '../../components/PMTL/PMTLPopover';
 
-function Header({ loading, ensgId, uniprotIds, symbol, name, crisprId }) {
+function Header({ loading, ensgId, uniprotIds, symbol, name, crisprId, pmtl }) {
   const ensemblUrl = `https://identifiers.org/ensembl:${ensgId}`;
   const genecardsUrl = `https://identifiers.org/genecards:${symbol}`;
   const hgncUrl = `https://identifiers.org/hgnc.symbol:${symbol}`;
@@ -50,6 +51,7 @@ function Header({ loading, ensgId, uniprotIds, symbol, name, crisprId }) {
           View {symbol} in Open Targets Genetics
         </Button>
       }
+      PMTLPopover={<PMTLPopOver pmtl={pmtl} />}
     />
   );
 }

@@ -22,6 +22,7 @@ const EVIDENCE_PROFILE_QUERY = gql`
       id
       approvedSymbol
       approvedName
+      pmtl_fda_designation
       functionDescriptions
       synonyms {
         label

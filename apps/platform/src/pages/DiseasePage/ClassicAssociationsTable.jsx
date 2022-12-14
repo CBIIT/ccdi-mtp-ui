@@ -13,6 +13,25 @@ import PartnerLockIcon from '../../components/PartnerLockIcon';
 
 import DISEASE_ASSOCIATIONS_QUERY from './DiseaseAssociations.gql';
 import usePermissions from '../../hooks/usePermissions';
+import RelevantIcon from '../../components/PMTL/RelevantIcon';
+import NonRelevantIcon from '../../components/PMTL/NonRelevantIcon';
+
+/* Given an FDA designation, getRMTLIcon can return the corresponding RMTL
+ * Icon to display on the Associations Table.
+ */
+const getRMTLIcon = designation => {
+  let rmtlIcon = '';
+  if (designation === 'Relevant Molecular Target') {
+    rmtlIcon = (
+      <RelevantIcon inputWidth={20} inputHeight={20} inputFontSize={14} />
+    );
+  } else if (designation === 'Non-Relevant Molecular Target') {
+    rmtlIcon = (
+      <NonRelevantIcon inputWidth={20} inputHeight={20} inputFontSize={11.5} />
+    );
+  }
+  return rmtlIcon;
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -107,6 +126,18 @@ const useStyles = makeStyles(theme => ({
 function getColumns(efoId, classes) {
   const { isPartnerPreview } = usePermissions();
   const columns = [
+    {
+      id: 'pmtl',
+      label: 'FDA PMTL',
+      align: 'center',
+      classes: {
+        headerCell: classes.symbolHeaderCell,
+        cell: classes.symbolCell,
+      },
+      exportValue: data =>
+        data.target.pmtl_fda_designation || 'Unspecified Target',
+      renderCell: row => getRMTLIcon(row.pmtl),
+    },
     {
       id: 'symbol',
       label: 'Symbol',
@@ -214,6 +245,7 @@ function getRows(data) {
       symbol: d.target.approvedSymbol,
       name: d.target.approvedName,
       score: d.score,
+      pmtl: d.target.pmtl_fda_designation,
     };
     dataTypes.forEach(dataType => {
       const dataTypeScore = d.datatypeScores.find(
