@@ -6,7 +6,7 @@ const summaryStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.grey[300],
   },
   avatarHasData: {
-    backgroundColor: `${theme.palette.primary.main} !important`,
+    backgroundColor: props => props.color ? props.color : `${theme.palette.primary.main} !important`,
   },
   avatarError: {
     backgroundColor: theme.palette.secondary.main,
@@ -19,7 +19,7 @@ const summaryStyles = makeStyles(theme => ({
   cardHasData: {
     cursor: 'pointer',
     '&:hover': {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: props => props.color ? props.color : theme.palette.primary.main,
     },
     '&:hover $titleHasData': {
       color: 'white',
@@ -31,7 +31,7 @@ const summaryStyles = makeStyles(theme => ({
       color: 'white',
     },
     '&:hover $avatarHasData': {
-      color: theme.palette.primary.main,
+      color: props => props.color ? props.color : theme.palette.primary.main,
       backgroundColor: 'white !important',
     },
   },
@@ -56,7 +56,7 @@ const summaryStyles = makeStyles(theme => ({
     fontStyle: 'italic',
   },
   subheaderHasData: {
-    color: theme.palette.primary.main,
+    color: props => props.color ? props.color : theme.palette.primary.main,
   },
   subheaderError: {
     color: theme.palette.secondary.main,
@@ -70,14 +70,14 @@ const summaryStyles = makeStyles(theme => ({
     wordBreak: 'break-word',
   },
   titleHasData: {
-    color: theme.palette.primary.main,
+    color: props => props.color ? props.color : theme.palette.primary.main,
     fontWeight: 'bold',
   },
   subtitle: {
     color: theme.palette.grey[500],
   },
   subtitleHasData: {
-    color: theme.palette.text.primary,
+    color: props => props.color ? props.color : theme.palette.text.primary,
   },
   titleError: {
     color: theme.palette.secondary.main,
