@@ -15,7 +15,8 @@ import { createShortName } from './utils';
 import PartnerLockIcon from '../PartnerLockIcon';
 
 function SummaryItem({ definition, request, renderSummary, subText }) {
-  const classes = summaryStyles();
+  const color = definition.color;
+  const classes = summaryStyles({ color });
   const { loading, error, data } = request;
   const shortName = createShortName(definition);
   const hasData = !loading && !error && data && definition.hasData(data);

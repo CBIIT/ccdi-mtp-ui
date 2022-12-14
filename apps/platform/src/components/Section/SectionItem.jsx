@@ -27,7 +27,8 @@ function SectionItem({
   tags,
   chipText,
 }) {
-  const classes = sectionStyles();
+  const color = definition.color;
+  const classes = sectionStyles({ color });
   const { loading, error, data } = request;
   const shortName = createShortName(definition);
 
