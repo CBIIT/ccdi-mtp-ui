@@ -27,6 +27,7 @@ function DataTable({
   loading,
   query,
   variables,
+  id = "",
 }) {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(initialPageSize);
@@ -72,6 +73,7 @@ function DataTable({
 
   return (
     <Table
+      id={id}
       noWrap={noWrap}
       noWrapHeader={noWrapHeader}
       fixed={fixed}
