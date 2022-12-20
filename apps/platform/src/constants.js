@@ -312,3 +312,7 @@ export const mtpPageNames = {
     url: '/mtp-pmtl-docs',
   },
 };
+
+export const mtpLinks = {
+  openPedCan: 'https://github.com/PediatricOpenTargets/documentation',
+}

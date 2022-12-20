@@ -1,15 +1,13 @@
 import React from 'react';
 import Link from '../../../components/Link';
+import { mtpLinks } from '../../../constants';
 
 const Description = ({ symbol }) => (
   <>
     Somatic alterations associated with <strong>{symbol}</strong> in pediatric
     cancers. Source:{' '}
-    <Link
-      to="https://github.com/PediatricOpenTargets/OpenPedCan-analysis"
-      external
-    >
-      OpenPedCan (v10)
+    <Link to={mtpLinks.openPedCan} external>
+      OpenPedCan
     </Link>
     {', '}
     <Link

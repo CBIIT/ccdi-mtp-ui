@@ -13,6 +13,7 @@ import NonRelevantIcon from '../../components/PMTL/NonRelevantIcon';
 import UnspecifiedIcon from '../../components/PMTL/UnspecifiedIcon';
 import ExternalLinkIcon from '../../components/ExternalLinkIcon';
 import Infographic from '../../assets/about/Infographic.png';
+import { mtpLinks } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -264,15 +265,11 @@ const AboutView = ({ data }) => {
           Neuroblastoma, and OpenPBTA.
         </p>
         <p>
-          SOURCE:
-          <Link
-            to="https://github.com/PediatricOpenTargets/OpenPedCan-analysis"
-            external
-          >
-            {' '}
-            OpenPedCan (v10)
-            <ExternalLinkIcon />{' '}
-          </Link>
+          SOURCE:{' '}
+          <Link to={mtpLinks.openPedCan} external>
+            OpenPedCan
+            <ExternalLinkIcon />
+          </Link>{' '}
           <br />
           Where this data is used in the MTP: OpenPedCan Somatic Alterations;
           OpenPedCan Gene Expression
@@ -518,16 +515,9 @@ const AboutView = ({ data }) => {
           planned for future release.
         </p>
         <p>
-          SOURCE:
-          <Link
-            to={
-              'https://github.com/PediatricOpenTargets/OpenPedCan-analysis/blob/' +
-              '4fb04fe60754b90da3c241dbb8b727c3722487cc/doc/release-notes.md'
-            }
-            external
-          >
-            {' '}
-            OpenPedCan (v10)
+          SOURCE:{' '}
+          <Link to={mtpLinks.openPedCan} external>
+            OpenPedCan
             <ExternalLinkIcon />
           </Link>
         </p>
@@ -579,13 +569,9 @@ const AboutView = ({ data }) => {
           calculation across all datasets and are designated as 'All Cohorts'.
         </p>
         <p>
-          SOURCE:
-          <Link
-            to="https://github.com/PediatricOpenTargets/OpenPedCan-analysis"
-            external
-          >
-            {' '}
-            OpenPedCan (v10)
+          SOURCE:{' '}
+          <Link to={mtpLinks.openPedCan} external>
+            OpenPedCan
             <ExternalLinkIcon />
           </Link>
           {', '}
@@ -660,13 +646,9 @@ const AboutView = ({ data }) => {
           across all datasets and designated as “All Cohorts”.
         </p>
         <p>
-          SOURCE:
-          <Link
-            to="https://github.com/PediatricOpenTargets/OpenPedCan-analysis"
-            external
-          >
-            {' '}
-            OpenPedCan (v10)
+          SOURCE:{' '}
+          <Link to={mtpLinks.openPedCan} external>
+            OpenPedCan
             <ExternalLinkIcon />
           </Link>
           ,
@@ -1084,10 +1066,7 @@ const AboutView = ({ data }) => {
                 datasets to accelerate pediatric cancer target identification
                 and drug development. To read more about the OpenPedCan data
                 processing methods, view the{' '}
-                <Link
-                  to="https://github.com/PediatricOpenTargets/documentation"
-                  external
-                >
+                <Link to={mtpLinks.openPedCan} external>
                   documentation
                   <ExternalLinkIcon />
                 </Link>

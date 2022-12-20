@@ -5,7 +5,7 @@ import NCIFooter from '../../components/NCIFooter';
 import NCIHeader from '../../components/NCIHeader';
 import ScrollToTop from '../../components/ScrollToTop';
 import Link from '../../components/Link';
-import { appDescription, appCanonicalUrl, version, mtpPageNames } from '../../constants';
+import { appDescription, appCanonicalUrl, version, mtpPageNames, mtpLinks } from '../../constants';
 import ExternalLinkIcon from '../../components/ExternalLinkIcon';
 import usePlatformApi from '../../hooks/usePlatformApi';
 import useConfigVersion from '../../hooks/useConfigVersion';
@@ -199,12 +199,8 @@ const ChangeLogView = ({ data }) => {
                     OpenPedCan Analyses
                   </Typography>
                   <b>Version in use</b>: {getVersion(openPedCanAnalyses, 'v')} <br />
-                  <b>Detailed Change Log</b>:
-                  <Link
-                    to="https://github.com/PediatricOpenTargets/OpenPedCan-analysis/blob/4fb04fe60754b90da3c241dbb8b727c3722487cc/doc/release-notes.md"
-                    external
-                  >
-                    {' '}
+                  <b>Detailed Change Log</b>:{' '}
+                  <Link to={mtpLinks.openPedCan} external>
                     OpenPedCan Analysis Release
                     <ExternalLinkIcon />
                   </Link>
