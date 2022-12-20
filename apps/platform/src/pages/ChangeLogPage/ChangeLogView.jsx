@@ -51,7 +51,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const getVersion = (obj, prefix='') => {
-  return obj ? `${prefix + obj?.version} (Released ${obj?.releaseDate})` : '';
+  if (obj?.customVersion) return obj.customVersion;
+
+  const version = obj?.version;
+  const releaseDate = obj?.releaseDate;
+  return obj && version && releaseDate ? `${prefix + version} (Released ${releaseDate})` : '';
 };
 
 const ChangeLogView = ({ data }) => {
