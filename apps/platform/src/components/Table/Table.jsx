@@ -50,6 +50,7 @@ const Table = ({
   rowIsSelectable = false,
   query,
   variables,
+  id,
 }) => {
   const emptyRows = pageSize - rows.length;
   const [selectedRow, setSelectedRow] = useState(0);
@@ -112,6 +113,7 @@ const Table = ({
           className={classNames(defaultClasses.table, classes.table, {
             [defaultClasses.tableFixed]: fixed,
           })}
+          id={id}
         >
           <TableHeader
             columns={columns}
@@ -155,6 +157,7 @@ const Table = ({
         )}
         {showPagination ? (
           <TablePagination
+            id={id+'Pagination'}
             ActionsComponent={ActionsComponent}
             backIconButtonProps={{ disabled: loading || page === 0 }}
             nextIconButtonProps={{

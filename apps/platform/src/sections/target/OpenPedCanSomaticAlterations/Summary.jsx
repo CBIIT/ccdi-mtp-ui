@@ -11,6 +11,7 @@ function Summary({ definition }) {
     <SummaryItem
       definition={definition}
       request={request}
+      id={'somaticAlterationsSummary'}
       renderSummary={data => {
         const hasData = definition.hasData(data);
         return hasData ? 'Available' : 'no data';

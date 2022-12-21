@@ -83,6 +83,11 @@ export const navBarData = [
         link: '/about',
       },
       {
+        labelText: 'Latest Release',
+        link: '/Latest-Release.pdf',
+        pageType: 'file',
+      },
+      {
         labelText: 'Change Log',
         link: '/change-log',
       },
@@ -92,7 +97,7 @@ export const navBarData = [
       },
       {
         labelText: 'User Guide',
-        link: '/MTP-User-Guide-v1.pdf',
+        link: '/MTP-User-Guide-v1.1.pdf',
         pageType: 'file',
       },
     ],
