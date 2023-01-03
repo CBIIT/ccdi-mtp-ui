@@ -40,7 +40,7 @@ class Link extends React.Component {
       to,
       onClick,
       external,
-      newTab,
+      newTab = true,
       footer,
       tooltip,
       className,
