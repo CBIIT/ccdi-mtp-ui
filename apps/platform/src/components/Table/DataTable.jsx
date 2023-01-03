@@ -28,6 +28,7 @@ function DataTable({
   query,
   variables,
   id = "",
+  stickyHeader,
 }) {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(initialPageSize);
@@ -104,6 +105,7 @@ function DataTable({
       loading={loading}
       query={query}
       variables={variables}
+      stickyHeader={stickyHeader}
     />
   );
 }
