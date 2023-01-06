@@ -144,11 +144,12 @@ const theme = {
     },
   },
   zIndex: {
-    navBar: 1002,
-    navPanel: 1001,
+    header: 51002, // include: NCILogoBar and NCINavBar
+    navbar: 51001, // NavBar
+    navPanel: 51000, // NavPanel (on the left side of Profile)
   },
   header: {
-    height: '182px', // // NCILinkBar(23px), NCILogoBar(100px), and NCINavBar(59px)
+    height: '182px', // NCILinkBar(23px), NCILogoBar(100px), and NCINavBar(59px)
     spacing: '52px', // spacing below the header
   },
 };

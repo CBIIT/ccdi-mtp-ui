@@ -86,7 +86,7 @@ const SmallerScreenNB = ({
             height: getPopoverHeight(),
           },
         }}
-        className={classes.PopoverStyle}
+        disablePortal={true}
       >
         <div>
           <ul className={classes.ulStyle}>
