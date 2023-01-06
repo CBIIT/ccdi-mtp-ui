@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core';
 import NCILogoBar from '../NCILogoBar';
 import NCINavBar from '../NCINavBar';
 
-const styles = () => ({
+const styles = (theme) => ({
   headerBar: {
     color: '#8A95A7',
     width: '100%',
@@ -12,7 +12,7 @@ const styles = () => ({
     justifyContent: 'space-between',
     background: '#ffffff',
     position: 'fixed',
-    zIndex: '40002',
+    zIndex: theme.zIndex.header,
     top: 24,
   },
 });
