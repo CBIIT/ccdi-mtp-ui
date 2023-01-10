@@ -10,11 +10,9 @@ import theme from './theme';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 import DiseasePage from './pages/DiseasePage';
-import DownloadsPage from './pages/DownloadsPage';
 import DrugPage from './pages/DrugPage';
 import TargetPage from './pages/TargetPage';
 import EvidencePage from './pages/EvidencePage';
-import VariantsPage from './pages/VariantsPage';
 import APIPage from './pages/APIPage';
 import PMTLPage from './pages/PMTLPage';
 import PMTLDocPage from './pages/PMTLDocPage/PMTLDocPage';
@@ -38,12 +36,10 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/search" component={SearchPage} />
-                <Route path="/downloads" component={DownloadsPage} />
                 <Route path="/disease/:efoId" component={DiseasePage} />
                 <Route path="/target/:ensgId" component={TargetPage} />
                 <Route path="/drug/:chemblId" component={DrugPage} />
                 <Route path="/evidence/:ensgId/:efoId" component={EvidencePage} />
-                <Route path="/variants" component={VariantsPage} />
                 <Route path="/api" component={APIPage} />
                 <Route path="/fda-pmtl" component={PMTLPage} />
                 <Route path="/mtp-pmtl-docs" component={PMTLDocPage} />

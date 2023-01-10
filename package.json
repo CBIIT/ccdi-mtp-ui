@@ -1,6 +1,5 @@
 {
-  "name": "ot-ui-apps",
-  "version": "0.0.1",
+  "name": "mtp-ui",
   "private": true,
   "license": "Apache-2.0",
   "workspaces": [
@@ -8,8 +7,7 @@
     "packages/*"
   ],
   "bugs": {
-    "url": "https://github.com/opentargets/ot-ui-apps/issues",
-    "email": "support@targetvalidation.org"
+    "email": "ncichildhoodcancerdatainitiative@mail.nih.gov"
   },
   "scripts": {
     "build": "turbo run build",
