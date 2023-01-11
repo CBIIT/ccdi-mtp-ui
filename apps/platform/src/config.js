@@ -8,7 +8,7 @@ const config = {
   googleTagManagerID: window.injectedEnv.configGoogleTagManagerID ?? null,
   efoURL: 
     window.injectedEnv.configEFOURL ??
-    'https://raw.githubusercontent.com/CBIIT/mtp-config/main/front-end/ontology-inputs/22.04/diseases_efo.jsonl',
+    'https://raw.githubusercontent.com/CBIIT/mtp-config/main/front-end/ontology-inputs/22.09/diseases_efo.jsonl',
   profile: window.configProfile ?? {},
   downloadsURL: window.injectedEnv.configDownloadsURL ?? '/data/downloads.json',
   geneticsPortalUrl:
