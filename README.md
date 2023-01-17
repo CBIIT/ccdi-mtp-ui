@@ -1,5 +1,7 @@
 # Open Targets Apps
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d08edfbb1b9549a192b9f8484747f79f)](https://app.codacy.com/gh/CBIIT/mtp-ui?utm_source=github.com&utm_medium=referral&utm_content=CBIIT/mtp-ui&utm_campaign=Badge_Grade_Settings)
+
 This repository holds the Open Targets web applications.
 
 ## Required stack
