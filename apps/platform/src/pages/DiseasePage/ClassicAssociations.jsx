@@ -41,7 +41,7 @@ function ClassicAssociations({ efoId, name }) {
     setAggregationFilters(newFilters);
   };
 
-  const facetData = data?.disease?.associatedTargets.aggregations.aggs;
+  const facetData = data?.disease?.associatedTargets?.aggregations?.aggs;
   const classes = useStyles();
   const PCDNUrl = '/pediatric-cancer-data-navigation';
 
