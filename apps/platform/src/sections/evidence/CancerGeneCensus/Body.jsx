@@ -49,10 +49,10 @@ const columns = [
                 external
                 to={identifiersOrgLink(
                   'SO',
-                  mutatedSample.functionalConsequence.id.slice(3)
+                  mutatedSample?.functionalConsequence?.id.slice(3)
                 )}
               >
-                {sentenceCase(mutatedSample.functionalConsequence.label)}
+                {sentenceCase(mutatedSample?.functionalConsequence?.label)}
               </Link>
             </ListItem>
           ))}
@@ -62,7 +62,7 @@ const columns = [
     filterValue: ({ mutatedSamples }) =>
       (mutatedSamples || [])
         .map(mutatedSample =>
-          sentenceCase(mutatedSample.functionalConsequence.label)
+          sentenceCase(mutatedSample?.functionalConsequence?.label)
         )
         .join(),
   },

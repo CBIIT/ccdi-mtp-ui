@@ -103,10 +103,10 @@ function BiomarkersDrawer({ biomarkerName, biomarkers }) {
                     <Link
                       external
                       to={`https://identifiers.org/${
-                        variant.functionalConsequenceId.id
+                        variant.functionalConsequenceId?.id
                       }`}
                     >
-                      {sentenceCase(variant.functionalConsequenceId.label)}
+                      {sentenceCase(variant.functionalConsequenceId?.label)}
                     </Link>
                   ) : null}
                 </div>
