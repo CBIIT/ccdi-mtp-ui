@@ -129,15 +129,15 @@ const columns = [
         <Link
           external
           to={`http://www.sequenceontology.org/browser/current_svn/term/${
-            variantFunctionalConsequence.id
+            variantFunctionalConsequence?.id
           }`}
         >
-          {sentenceCase(variantFunctionalConsequence.label)}
+          {sentenceCase(variantFunctionalConsequence?.label)}
         </Link>
       );
     },
     filterValue: ({ variantFunctionalConsequence }) =>
-      sentenceCase(variantFunctionalConsequence.label),
+      sentenceCase(variantFunctionalConsequence?.label),
   },
   {
     id: 'clinicalSignificances',
