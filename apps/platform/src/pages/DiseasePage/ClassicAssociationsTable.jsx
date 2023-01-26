@@ -375,7 +375,7 @@ function ClassicAssociationsTable({ efoId, aggregationFilters }) {
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleRowsPerPageChange}
       />
-      <Legend />
+      <Legend newTab />
     </>
   );
 }

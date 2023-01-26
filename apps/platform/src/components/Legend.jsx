@@ -4,11 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { colorRange } from '../constants';
 
-function Legend({ url, urlLabel, hideLink }) {
+function Legend({ url, urlLabel, hideLink, newTab }) {
   const linkUrl = url
     ? url
     : 'https://platform-docs.opentargets.org/associations#association-scores';
   const linkLabel = urlLabel ? urlLabel : 'Score';
+  const newTabProps = newTab
+    ? { target: '_blank', rel: 'noopener noreferrer' }
+    : {};
 
   return (
     <div>
@@ -42,7 +45,7 @@ function Legend({ url, urlLabel, hideLink }) {
         </div>
       </div>
       {hideLink ? null : (
-        <Link href={linkUrl}>
+        <Link href={linkUrl} {...newTabProps}>
           <FontAwesomeIcon icon={faQuestionCircle} size="xs" /> {linkLabel}
         </Link>
       )}
