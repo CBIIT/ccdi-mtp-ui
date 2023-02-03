@@ -9,9 +9,9 @@ import navPanelStyles from './navPanelStyles';
 import useSectionOrder from '../../hooks/useSectionOrder';
 
 function SectionMenuItem({ index, section }) {
-  const classes = navPanelStyles();
+  const { id, name, shortName, color } = section.props.definition;
+  const classes = navPanelStyles({ color });
   const { shouldRender } = useSectionOrder();
-  const { id, name, shortName } = section.props.definition;
 
   const handleSectionButtonClick = sectionId => {
     scroller.scrollTo(sectionId, {

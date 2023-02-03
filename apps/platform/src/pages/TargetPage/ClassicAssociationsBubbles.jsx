@@ -207,7 +207,7 @@ function ClassicAssociationsBubbles({
           ) : null}
         </Grid>
       </DownloadSvgPlot>
-      <Legend />
+      <Legend newTab />
     </>
   );
 }

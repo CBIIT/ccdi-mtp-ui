@@ -2,7 +2,7 @@
 var configProfile = {
   /* general items */
 
-  helpdeskEmail: 'helpdesk@opentargets.org',
+  helpdeskEmail: 'ncichildhoodcancerdatainitiative@mail.nih.gov',
   // config navbar main menu (hamburger)
   // mainMenuItems: [],
   // homepage logo subtitle (tagline)

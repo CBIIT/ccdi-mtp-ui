@@ -13,6 +13,7 @@ import {
   Typography,
   Tabs,
   Tab,
+  makeStyles,
 } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 
@@ -21,8 +22,32 @@ import ClassicAssociationsBubbles from './ClassicAssociationsBubbles';
 import ClassicAssociationsTable from './ClassicAssociationsTable';
 import { Facets } from '../../components/Facets';
 import Wrapper from './Wrapper';
+import RouterLink from '../../components/Link';
+import NavIcon from '../../assets/PediatricDataCancer-MenuBar-Icon.svg';
 
 import TARGET_FACETS_QUERY from './TargetFacets.gql';
+
+const useStyles = makeStyles(theme => ({
+  PCDNBox: {
+    backgroundColor: '#5CA300',
+    minWidth: '289px',
+    height: '31px',
+    display: 'inline-block',
+    fontFamily: 'Inter',
+    padding: '0px 13px',
+  },
+  desPCDNText: {
+    fontSize: '16px',
+    marginRight: '11px',
+  },
+  PCDNText: {
+    fontSize: '16px',
+    color: 'white',
+    paddingLeft: '8px',
+    position: 'relative',
+    top: '-1px',
+  },
+}));
 
 function ClassicAssociations({ ensgId, symbol }) {
   const match = useRouteMatch();
@@ -37,15 +62,18 @@ function ClassicAssociations({ ensgId, symbol }) {
   };
 
   const facetData = data?.target?.associatedDiseases.aggregations.aggs;
+  const classes = useStyles();
+  const PCDNUrl = '/pediatric-cancer-data-navigation';
 
   return (
     <Grid style={{ marginTop: '8px' }} container spacing={2}>
-      <Grid item xs={12}>
+      <Grid item xs={12} md={4}>
         <Typography variant="h6">
           {data ? (
             <>
               <strong>
-                {data.target.associatedDiseases.count} diseases or phenotypes
+                <span id="associatedDiseases">{data.target.associatedDiseases.count}</span>{' '}
+                diseases or phenotypes
               </strong>{' '}
               associated with <strong>{symbol}</strong>
             </>
@@ -53,7 +81,39 @@ function ClassicAssociations({ ensgId, symbol }) {
             <strong>Loading...</strong>
           )}
         </Typography>
-      </Grid>{' '}
+      </Grid>
+      <Grid item xs={12} md={8}>
+        <Typography variant="h6" align="right">
+          {data ? (
+            <>
+              <span className={classes.desPCDNText}>
+                Additional pediatric cancer data may be found at:
+              </span>
+              <div className={classes.PCDNBox}>
+                <RouterLink
+                  to={{
+                    pathname: PCDNUrl,
+                    state: {
+                      entity: 'target',
+                      geneSymbol: symbol,
+                    },
+                  }}
+                >
+                  <img
+                    src={NavIcon}
+                    width="15px"
+                    height="15px"
+                    alt={'Navigation Icon'}
+                  />
+                  <span className={classes.PCDNText}>
+                    Pediatric Cancer Data Navigation
+                  </span>
+                </RouterLink>{' '}
+              </div>
+            </>
+          ) : null}
+        </Typography>
+      </Grid>
       <Grid item xs={12} lg={3}>
         <Card elevation={0}>
           <CardContent>

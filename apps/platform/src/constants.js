@@ -216,10 +216,10 @@ export const particlesConfig = {
 };
 
 // App title.
-export const appTitle = 'Open Targets Platform';
+export const appTitle = 'Molecular Targets Platform';
 export const appDescription =
-  'The Open Targets Platform is a data integration tool that supports systematic drug target identification and prioritisation';
-export const appCanonicalUrl = 'https://platform.opentargets.org';
+  'The Molecular Targets Platform is a data integration tool that supports systematic drug target identification and prioritisation';
+export const appCanonicalUrl = 'https://moleculartargets.ccdi.cancer.gov';
 
 // Chunk sizes for server side pagination/download.
 export const tableChunkSize = 100;
@@ -286,3 +286,33 @@ export const studySourceMap = {
   SAIGE: 'UK Biobank',
   NEALE: 'UK Biobank',
 };
+
+export const contact = {
+  email: 'ncichildhoodcancerdatainitiative@mail.nih.gov',
+};
+
+export const version = {
+  frontend: config.frontendVersion,
+  frontendURL: 'https://github.com/CBIIT/ppdc-otp-frontend/releases',
+  backend: config.backendVersion,
+  backendURL: 'https://github.com/CBIIT/ppdc-otp-backend/releases',
+  changeLogPage: '/change-log',
+  versionConfigURL: `${config.mtpConfig}/front-end/assets/data/version.json`,
+};
+
+export const mtpPageNames = {
+  // FDA Pediatric Molecular Target Lists
+  fdaPmtlPage: {
+    label: 'FDA Pediatric Molecular Target Lists',
+    url: '/fda-pmtl',
+  },
+  // MTP PMTL Documentation
+  mtpPmtlDocPage: {
+    label: 'MTP PMTL Documentation',
+    url: '/mtp-pmtl-docs',
+  },
+};
+
+export const mtpLinks = {
+  openPedCan: 'https://github.com/PediatricOpenTargets/documentation',
+}

@@ -50,6 +50,8 @@ const Table = ({
   rowIsSelectable = false,
   query,
   variables,
+  stickyHeader,
+  id,
 }) => {
   const emptyRows = pageSize - rows.length;
   const [selectedRow, setSelectedRow] = useState(0);
@@ -106,12 +108,16 @@ const Table = ({
         )}
       </Grid>
       <TableContainer
-        className={classNames(defaultClasses.container, classes.root)}
+        className={classNames(defaultClasses.container, classes.root, {
+          [defaultClasses.stickyHeader]: stickyHeader,
+        })}
       >
         <MuiTable
           className={classNames(defaultClasses.table, classes.table, {
             [defaultClasses.tableFixed]: fixed,
           })}
+          stickyHeader={stickyHeader}
+          id={id}
         >
           <TableHeader
             columns={columns}
@@ -120,6 +126,7 @@ const Table = ({
             order={order}
             sortBy={sortBy}
             onRequestSort={handleSort}
+            stickyHeader={stickyHeader}
           />
           <TableBody>
             {rows.map((row, i) => (
@@ -155,6 +162,7 @@ const Table = ({
         )}
         {showPagination ? (
           <TablePagination
+            id={id+'Pagination'}
             ActionsComponent={ActionsComponent}
             backIconButtonProps={{ disabled: loading || page === 0 }}
             nextIconButtonProps={{

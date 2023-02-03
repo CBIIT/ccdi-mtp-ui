@@ -3,11 +3,12 @@ query TargetPageQuery($ensgId: String!) {
     id
     approvedSymbol
     approvedName
-    proteinIds{
+    pmtl_fda_designation
+    proteinIds {
       id
       source
     }
-    dbXrefs{
+    dbXrefs {
       id
       source
     }

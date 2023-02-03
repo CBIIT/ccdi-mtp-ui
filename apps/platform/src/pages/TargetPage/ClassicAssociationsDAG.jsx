@@ -208,7 +208,7 @@ function ClassicAssociationsDAG({
           ) : null}
         </Grid>
       </DownloadSvgPlot>
-      <Legend />
+      <Legend newTab />
     </>
   );
 }
