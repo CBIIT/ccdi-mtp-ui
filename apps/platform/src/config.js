@@ -1,5 +1,5 @@
 // Configuration Object
-const configVersion = window.injectedEnv.configVersion ?? "main";
+const configVersion = window.injectedEnv.configVersion ?? "CCDIMTP-556";
 
 const config = {
   urlApi:
