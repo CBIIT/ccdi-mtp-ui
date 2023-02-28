@@ -11,7 +11,7 @@ function Body({ definition, id, label: symbol }) {
   const ensemblId = id;
   const downloadFileName = `OpenPedCanGeneExpression-${ensemblId}`;
   const imageAlt = 'Ssingle-gene all-diseases';
-  const configAPI = `${config.mtpConfig}/front-end/page_target/GeneExpression_Config.json`;
+  const configAPI = `${config.mtpConfig}/front-end/page_target/GeneExpressionGTEx_Config.json`;
   return (
     <OpenPedCanGeneExpression
       definition={definition}
