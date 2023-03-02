@@ -51,7 +51,7 @@ export function europePmcBiblioSearchPOSTQuery(ids, size = 25) {
   const bodyOptions = {
     resultType: 'core',
     format: 'json',
-    pageSize: size,
+    pageSize: ids.length,
     query: `SRC:MED AND (ext_id:${query})`,
   };
   const formBody = encodeParams(bodyOptions);
