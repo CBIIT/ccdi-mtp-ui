@@ -45,7 +45,6 @@ export function europePmcSearchPOSTQuery(ids) {
   return { baseUrl, formBody };
 }
 
-
 export function europePmcBiblioSearchPOSTQuery(ids, size = 25) {
   const baseUrl = 'https://www.ebi.ac.uk/europepmc/webservices/rest/searchPOST';
   const query = ids.join(' OR ext_id:');
@@ -53,7 +52,7 @@ export function europePmcBiblioSearchPOSTQuery(ids, size = 25) {
     resultType: 'core',
     format: 'json',
     pageSize: ids.length,
-    query: `ext_id:${query}`,
+    query: `SRC:MED AND (ext_id:${query})`,
   };
   const formBody = encodeParams(bodyOptions);
   const requestOptions = {
@@ -65,7 +64,6 @@ export function europePmcBiblioSearchPOSTQuery(ids, size = 25) {
   };
   return { baseUrl, formBody, requestOptions };
 }
-
 
 function clinicalTrialsUrl(id) {
   return `https://www.clinicaltrials.gov/ct2/show/${id}`;
