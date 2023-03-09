@@ -21,7 +21,7 @@ function Body({
   const [json, setJson] = useState([]);
   const [linearPlot, setLinearPlot] = useState('');
   const [log10Plot, setLog10Plot] = useState('');
-  const [tab, setTab] = useState('linear');
+  const [tab, setTab] = useState('gtexLinear');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [hasData, setHasData] = useState(false);
@@ -52,17 +52,21 @@ function Body({
   });
 
   const classes = useStyles();
+  /* GTEx:
+      -  value: "gtexLinear", label="GTEx Linear"
+      -  value: "gtexLog10", label: "GTEx Log 10" 
+  */
 
   useEffect(
     () => {
       const generticId = entity === 'evidence' ? [id.ensgId, id.efoId] : [id];
-      if (tab === 'linear' && linearPlot.length === 0) {
+      if (tab === 'gtexLinear' && linearPlot.length === 0) {
         /********     Get Linear Plot    ******** */
 
         setLoading(true);
         getPlot(
           ...generticId,
-          tab,
+          'linear',
           resData => {
             const base64 = Buffer.from(resData).toString('base64');
             const imageSrc = base64;
@@ -75,13 +79,13 @@ function Body({
             console.log(error);
           }
         );
-      } else if (tab === 'log10' && log10Plot.length === 0) {
+      } else if (tab === 'gtexLog10' && log10Plot.length === 0) {
         /********     Get Log10 Plot    ******** */
 
         setLoading(true);
         getPlot(
           ...generticId,
-          tab,
+          'log10',
           resData => {
             const base64 = Buffer.from(resData).toString('base64');
             const imageSrc = base64;
@@ -155,11 +159,11 @@ function Body({
               style={{ marginBottom: '1rem' }}
               className={classes.tabs}
             >
-              <Tab value="linear" label="Linear" id="geneExpressionLinearTab" />
-              <Tab value="log10" label="Log 10" id="geneExpressionLog10Tab" />
+              <Tab value="gtexLinear" label="GTEx Linear" id="geneExpressionLinearTab" />
+              <Tab value="gtexLog10" label="GTEx Log 10" id="geneExpressionLog10Tab" />
             </Tabs>
 
-            {tab === 'linear' ? (
+            {tab === 'gtexLinear' ? (
               <>
                 <Grid container>
                   <DataDownloader
@@ -183,7 +187,7 @@ function Body({
               </>
             ) : null}
 
-            {tab === 'log10' ? (
+            {tab === 'gtexLog10' ? (
               <>
                 <Grid container>
                   <DataDownloader
