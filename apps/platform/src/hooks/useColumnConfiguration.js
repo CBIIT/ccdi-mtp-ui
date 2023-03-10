@@ -3,7 +3,7 @@ import {
   interpretConfig,
   addColumnCustomFields,
   fetchConfigObj,
-} from '../sections/common/OpenPedCanSomaticAlterations/utils';
+} from '../utils/columnConfig';
 
 export default function useColumnConfiguration(
   configAPI,
