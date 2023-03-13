@@ -25,13 +25,15 @@ function Body({
   const request = useQuery(BODY_QUERY, {
     variables: { ...variables, size: 9999 },
   });
-
+  // Tabs under Epigenetic Modification widget
   const emTabs = ['methylationByGene', 'methylationByIsoform']
+
   const defualtTabPros = {
     summaryData: summaryRequest?.data,
     widgetTabs: emTabs,
     initialDefaultTab: 'methylationByGene',
   }
+  // Based on the Data availability, get default Tab
   const defaultTab = getDefaultTab(defualtTabPros);
   const [tab, setTab] = useState(defaultTab);
 
@@ -79,28 +81,10 @@ function Body({
         <Description symbol={label.symbol} name={label.name} />
       )}
       renderBody={data => {
-        // TODO: replace w/ const { methylationByGene, methylationByIsoform, } = data;
-        const {
-          methylationByGene,
-          methylationByIsoform,
-        } = {
-          methylationByGene: {
-            evidences: {
-              count: 1,
-              rows: [{"geneSymbol": "WASH7P","targetFromSourceId": "ENSG00000227232","geneFeature": "Promoter","dataset": "PBTA","Disease": "Low-grade glioma/astrocytoma","diseaseFromSourceMappedId": "MONDO_0016685",
-              "MONDO": "MONDO_0016685","medianTPM": 80,"rnaCorrelation": -0.0898345,"probeID": "cg26006703","chromosome": 1,"location": 14111,"betaQ1": 0.482949431,"betaQ2": 0.61202675,
-              "betaMedian": 0.646154732,"betaQ4": 0.684985932,"betaQ5": 0.790792093,"datatypeId": "pediatric_cancer","chop_uuid": "f5b5c5ac-883a-4f6d-b1a3-8136b982d6c2","datasourceId": "chop_gene_level_methylation"}]
-            }
-          },
-          methylationByIsoform: {
-            evidences: {
-              count: 1,
-              rows: [{"geneSymbol": "MIR1302-2HG","targetFromSourceId": "ENSG00000243485","geneFeature": "Promoter","dataset": "PBTA","Disease": "Low-grade glioma/astrocytoma","diseaseFromSourceMappedId": "MONDO_0016685",
-              "MONDO": "MONDO_0016685","medianTPM": 40,"rnaCorrelation": -0.05718872,"probeID": "cg12045430","chromosome": 1,"location": 29407,"betaQ1": 0.02232324,"betaQ2": 0.067455865,
-              "betaMedian": 0.084832527,"betaQ4": 0.101749238,"betaQ5": 0.198324323,"datatypeId": "pediatric_cancer","chop_uuid": "9b99f156-1f6d-424c-8ff7-2cd1989e184a","datasourceId": "chop_gene_level_methylation"}]
-            }
-          }
-        }
+        const { methylationByGene, methylationByIsoform, } = data;
+        const methylationByGeneCount = methylationByGene?.evidences?.count;
+        const methylationByIsoformCount = methylationByIsoform?.evidences?.count;
+
         return (
           <>
             <Tabs
@@ -112,18 +96,18 @@ function Body({
               <Tab
                 value="methylationByGene"
                 label="Methylation By Gene"
-                disabled={methylationByGene.evidences.count === 0}
-                id="methylByGeneTab"
+                disabled={methylationByGeneCount === 0}
+                id="methylationByGeneTab"
               />
               <Tab
                 value="methylationByIsoform"
                 label="Methylation By Isoform"
-                disabled={methylationByIsoform.evidences.count === 0}
-                id="methylByIsoformTab"
+                disabled={methylationByIsoformCount === 0}
+                id="methylationByIsoformTab"
               />
             </Tabs>
 
-            {tab === 'methylationByGene' && methylationByGene.evidences.count !== 0 && (
+            {tab === 'methylationByGene' && methylationByGeneCount !== 0 && (
               <MethylationByGeneTab
                 data={methylationByGene?.evidences?.rows || []}
                 BODY_QUERY={BODY_QUERY}
@@ -134,7 +118,7 @@ function Body({
               />
             )}
 
-            {tab === 'methylationByIsoform' && methylationByIsoform.evidences.count !== 0 && (
+            {tab === 'methylationByIsoform' && methylationByIsoformCount !== 0 && (
               <MethylationByIsoformTab
                 data={methylationByIsoform?.evidences?.rows || []}
                 BODY_QUERY={BODY_QUERY}
