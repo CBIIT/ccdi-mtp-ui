@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 import { DataTable } from '../../../components/Table';
 import { defaultRowsPerPageOptions } from '../../../constants';
 
-function MethylByIsoformTab({
+function MethylationByIsoformTab({
   data,
   BODY_QUERY,
   variables,
@@ -16,7 +16,7 @@ function MethylByIsoformTab({
     <Grid container>
       <Grid item xs={12}>
         <DataTable
-          id="epigeneticModificationMethylByIsoformTable"
+          id="epigeneticModificationMethylationByIsoformTable"
           dataDownloader
           showGlobalFilter
           stickyHeader
@@ -36,4 +36,4 @@ function MethylByIsoformTab({
   );
 }
 
-export default MethylByIsoformTab;
+export default MethylationByIsoformTab;

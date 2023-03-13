@@ -16,7 +16,7 @@ function MethylationByGeneTab({
     <Grid container>
       <Grid item xs={12}>
         <DataTable
-          id="epigeneticModificationMethylByGeneTable"
+          id="epigeneticModificationMethylationByGeneTable"
           dataDownloader
           showGlobalFilter
           stickyHeader
