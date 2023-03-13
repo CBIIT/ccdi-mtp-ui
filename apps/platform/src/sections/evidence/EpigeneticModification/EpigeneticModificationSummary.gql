@@ -1,45 +1,18 @@
 fragment evidenceEpigeneticModificationSummary on Disease {
-  snvByGene: evidences(
+  methylationByGene: evidences(
     ensemblIds: [$ensgId]
     enableIndirect: true
-    datasourceIds: ["chop_gene_level_snv"]
+    datasourceIds: ["chop_gene_level_methylation"]
     size: 0
   ) {
     count
   }
 
-  snvByVariant: evidences(
+  methylationByIsoform: evidences(
     ensemblIds: [$ensgId]
     enableIndirect: true
     size: 0
-    datasourceIds: ["chop_variant_level_snv"]
-  ) {
-    count
-  }
-
-  cnvByGene: evidences(
-    ensemblIds: [$ensgId]
-    enableIndirect: true
-    size: 0
-    datasourceIds: ["chop_gene_level_cnv"]
-  ) {
-    count
-  }
-
-  fusionByGene: evidences(
-    ensemblIds: [$ensgId]
-    enableIndirect: true
-    size: 0
-    datasourceIds: ["chop_putative_oncogene_fused_gene"]
-  ) {
-    count
-  }
-
-  fusion: evidences(
-    ensemblIds: [$ensgId]
-    enableIndirect: true
-    size: 0
-    datasourceIds: ["chop_putative_oncogene_fusion"]
+    datasourceIds: ["chop_transcript_level_methylation"]
   ) {
     count
   }
