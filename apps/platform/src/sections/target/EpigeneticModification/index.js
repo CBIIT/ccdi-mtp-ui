@@ -3,8 +3,7 @@ export const definition = {
   name: 'Epigenetic Modification',
   shortName: 'EM',
   hasData: data => {
-    const { methylationByGene, methylationByIsoform, } = data;
-    const hasCount = methylationByGene?.count > 0 || methylationByIsoform?.count > 0;
+    const hasCount = data?.methylationByGene?.count > 0 || data?.methylationByIsoform?.count > 0;
     return hasCount;
   },
   color: '#5ca300',
