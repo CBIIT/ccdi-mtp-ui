@@ -4,7 +4,7 @@ import { mtpLinks } from '../../../constants';
 
 const Description = ({ symbol, name }) => (
   <>
-    Somatic alterations associated with <strong>{symbol}</strong> in pediatric{' '}
+    Epigenetic Modification associated with <strong>{symbol}</strong> in pediatric{' '}
     <strong>{name}</strong>. Source:{' '}
     <Link to={mtpLinks.openPedCan} external>
       OpenPedCan
