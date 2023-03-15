@@ -26,7 +26,7 @@ import { genericComparator } from '../../utils/comparators'
 import config from '../../config';
 
 const { mtpPmtlDocPage } = mtpPageNames;
-const PMTL_DATA_URL = `${config.mtpConfig}/data/pmtl_v3.0.json`;
+const PMTL_DATA_URL = `${config.mtpConfig}/data/pmtl_v3.1.json`;
 
 function getColumns(
   targetSymbolOption,
