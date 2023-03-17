@@ -144,7 +144,7 @@ function Body({
   return (
     <SectionItem
       definition={definition}
-      chipText={entity === 'evidence' ? dataTypesMap.rna_expression : ''}
+      chipText={entity === 'evidence' ? dataTypesMap.pediatric_cancer : ''}
       request={{ data: { linearPlot, log10Plot, json }, error, loading }}
       renderDescription={() => (
         <Description symbol={label.symbol} name={label.name} />
