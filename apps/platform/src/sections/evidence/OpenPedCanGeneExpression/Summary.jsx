@@ -75,7 +75,7 @@ function Summary({
         const hasData = definition.hasData(data);
         return hasData ? 'Available' : 'no data';
       }}
-      subText={dataTypesMap.rna_expression}
+      subText={dataTypesMap.pediatric_cancer}
     />
   );
 }
