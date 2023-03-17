@@ -46,6 +46,11 @@ const dataTypes = [
     label: 'OTAR Validation Lab',
     isPrivate: isPrivateDataType('ot_validation_lab'),
   },
+  {
+    id: 'pediatric_cancer',
+    label: 'Pediatric Cancer',
+    isPrivate: isPrivateDataType('pediatric_cancer'),
+  },
 ];
 
 const dataTypesMap = dataTypes.reduce((acc, dataType) => {

@@ -1,0 +1,63 @@
+query EpigeneticModificationQuery($ensemblId: String!, $size: Int = 20) {
+  methylationByGene: target(ensemblId: $ensemblId) {
+    id
+    evidences(
+      efoIds: []
+      size: $size
+      datasourceIds: ["chop_gene_level_methylation"]
+    ) {
+      count
+      rows {
+        geneSymbol
+        targetFromSourceId
+        geneFeature
+        dataset
+        Disease
+        diseaseFromSourceMappedId
+        MONDO
+        rnaCorrelation
+        medianTPM
+        probeID
+        chromosome
+        location
+        betaQ1
+        betaQ2
+        betaMedian
+        betaQ4
+        betaQ5
+      }
+    }
+  }
+
+  methylationByIsoform: target(ensemblId: $ensemblId) {
+    id
+    evidences(
+      efoIds: []
+      size: $size
+      datasourceIds: ["chop_transcript_level_methylation"]
+    ) {
+      count
+      rows {
+        geneSymbol
+        targetFromSourceId
+        transcriptId
+        geneFeature
+        dataset
+        Disease
+        diseaseFromSourceMappedId
+        MONDO
+        rnaCorrelation
+        medianTPM
+        transcriptRepresentation
+        probeID
+        chromosome
+        location
+        betaQ1
+        betaQ2
+        betaMedian
+        betaQ4
+        betaQ5
+      }
+    }
+  }
+}
