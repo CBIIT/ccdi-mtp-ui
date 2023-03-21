@@ -88,6 +88,13 @@ const columns = [
       GeneExpression === 'true' ? <GreenCheckIcon /> : null,
     comparator: (a, b) => genericComparator(a, b, 'GeneExpression'),
   },
+  {
+    id: 'Methylation',
+    label: 'Methylation',
+    renderCell: ({ Methylation }) =>
+      Methylation === 'true' ? <GreenCheckIcon /> : null,
+    comparator: (a, b) => genericComparator(a, b, 'Methylation'),
+  },
 ];
 
 function getRows(downloadData) {
@@ -102,6 +109,7 @@ function getRows(downloadData) {
       CNV: mapping.CNV + '',
       Fusion: mapping.Fusion + '',
       GeneExpression: mapping.GeneExpression + '',
+      Methylation: mapping.Methylation + '',
     });
   });
   return rows;

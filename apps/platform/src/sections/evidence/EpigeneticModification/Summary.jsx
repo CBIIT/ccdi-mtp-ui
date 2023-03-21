@@ -4,15 +4,15 @@ import SummaryItem from '../../../components/Summary/SummaryItem';
 import { dataTypesMap } from '../../../dataTypes';
 import usePlatformApi from '../../../hooks/usePlatformApi';
 
-import SOMATIC_ALTERATIONS_SUMMARY from './SomaticAlterationsSummary.gql';
+import EPIGENETIC_MODIFICATION_SUMMARY from './EpigeneticModificationSummary.gql';
 
 function Summary({ definition }) {
-  const request = usePlatformApi(SOMATIC_ALTERATIONS_SUMMARY);
+  const request = usePlatformApi(EPIGENETIC_MODIFICATION_SUMMARY);
   return (
     <SummaryItem
       definition={definition}
       request={request}
-      id={"somaticAlterationsSummary"}
+      id={"epigeneticModificationSummary"}
       renderSummary={data => {
         const hasData = definition.hasData(data);
         return hasData ? 'Available' : 'no data';
@@ -23,7 +23,7 @@ function Summary({ definition }) {
 }
 
 Summary.fragments = {
-  evidenceSomaticAlterationsSummary: SOMATIC_ALTERATIONS_SUMMARY,
+  evidenceEpigeneticModificationSummary: EPIGENETIC_MODIFICATION_SUMMARY,
 };
 
 export default Summary;
