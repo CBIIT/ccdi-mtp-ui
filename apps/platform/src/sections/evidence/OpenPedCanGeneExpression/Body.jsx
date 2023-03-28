@@ -10,7 +10,7 @@ function Body({ definition, id, label }) {
   const { ensgId: ensemblId, efoId } = id;
   const downloadFileName = `OpenPedCanGeneExpression-${ensemblId}-${efoId}`;
   const imageAlt = 'Single-gene single-disease all-GTEx-tissue-subgroups';
-  const configAPI = `${config.mtpConfig}/front-end/page_evidence/GeneExpressionGTEx_Config.json`;
+  const configAPI = `${config.mtpConfig}/front-end/page_evidence`;
   return (
     <OpenPedCanGeneExpressionBody
       definition={definition}

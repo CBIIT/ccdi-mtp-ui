@@ -10,8 +10,8 @@ import { Body as OpenPedCanGeneExpression } from '../../common/OpenPedCanGeneExp
 function Body({ definition, id, label: symbol }) {
   const ensemblId = id;
   const downloadFileName = `OpenPedCanGeneExpression-${ensemblId}`;
-  const imageAlt = 'Ssingle-gene all-diseases';
-  const configAPI = `${config.mtpConfig}/front-end/page_target/GeneExpressionGTEx_Config.json`;
+  const imageAlt = 'Single-gene all-diseases';
+  const configAPI = `${config.mtpConfig}/front-end/page_target`;
   return (
     <OpenPedCanGeneExpression
       definition={definition}
