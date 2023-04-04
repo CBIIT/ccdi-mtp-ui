@@ -32,22 +32,32 @@ function Body({
   definition,
   id,
   label,
-  getData,
-  getPlot,
-  Description,
   entity,
-  fileStem,
-  imageAlt,
+  Description,
   configAPI,
+  fileStem,
+  getGtexData,
+  getGtexPlot,
+  gtexImageAlt,
+  getTcgaData,
+  getTcgaPlot,
+  tcgaImageAlt,
 }) {
   const [gtexJson, setGtexJson] = useState([]);
   const [gtexLinearPlot, setGtexLinearPlot] = useState('');
   const [gtexLog10Plot, setGtexLog10Plot] = useState('');
+  const [gtexHasData, setGtexHasData] = useState(false);
+
+  const [tcgaJson, setTcgaJson] = useState([]);
+  const [tcgaLinearPlot, setTcgaLinearPlot] = useState('');
+  const [tcgaLog10Plot, setTcgaLog10Plot] = useState('');
+  const [tcgaHasData, setTcgaHasData] = useState(false);
   const [tab, setTab] = useState('gtexLinear');
+
   // Figure out how to have gtex vs tcga loading and error
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [gtexHasData, setGtexHasData] = useState(false);
+
   const classes = useStyles();
   
   const generticId = useMemo(() => entity === 'evidence' ? [id.ensgId, id.efoId] : [id], [id, entity])
@@ -64,47 +74,88 @@ function Body({
     console.log("Gene Expression widget: ", error);
   }
 
-
   const handleOnChange = (_, tab) => {
     return setTab(tab);
   };
+  useEffect(() => {
+        /********     Get GTEx JSON Data    ******** */
+    getGtexData(id, setGtexJson, () => {}, setGtexHasData);
+        /********     Get TCGA JSON Data    ******** */
+    getTcgaData(id, setTcgaJson, () => {}, setTcgaHasData);
+    setTab(gtexHasData ? 'gtexLinear' : 'tcgaLinear')
+  }, [id, gtexHasData, getGtexData, getTcgaData, ]);
+
 
   useEffect(
     () => {
-      if (tab === 'gtexLinear' && gtexLinearPlot.length === 0) {
+      if (gtexHasData && tab === 'gtexLinear' && gtexLinearPlot.length === 0) {
         /********     Get GTEx Linear Plot    ******** */
         setLoading(true);
-        getPlot( 
+        getGtexPlot(
           ...generticId, 'linear', resData => handlePlotData(resData, setGtexLinearPlot), handleError,
         );
-      } else if (tab === 'gtexLog10' && gtexLog10Plot.length === 0) {
-        console.log("|| Getting gtexLog10Plot ");
+      }
+      if (gtexHasData && tab === 'gtexLog10' && gtexLog10Plot.length === 0) {
         /********     Get GTEx Log10 Plot    ******** */
         setLoading(true);
-        getPlot(
+        getGtexPlot(
           ...generticId, 'log10', resData => handlePlotData(resData, setGtexLog10Plot), handleError,
         );
       }
-      return () => {
-        /********     Get GTEx JSON Data    ******** */
-        if (!gtexHasData) getData(id, setGtexJson, setLoading, setGtexHasData);
-      };
+      if (tcgaHasData && tab === 'tcgaLinear' && tcgaLinearPlot.length === 0) {
+        /********     Get TCGA Linear Plot    ******** */
+        setLoading(true);
+        getTcgaPlot(
+          ...generticId, 'linear', resData => handlePlotData(resData, setTcgaLinearPlot), handleError,
+        );
+      }
+      if (tcgaHasData && tab === 'tcgaLog10' && tcgaLog10Plot.length === 0) {
+        /********     Get TCGA Log10 Plot    ******** */
+        setLoading(true);
+        getTcgaPlot(
+          ...generticId, 'log10', resData => handlePlotData(resData, setTcgaLog10Plot), handleError,
+        );
+      }
     },
-    [ tab, gtexLinearPlot, gtexLog10Plot, id, getData, getPlot, entity, generticId, gtexHasData ]
+    [
+      tab,
+      generticId,
+
+      gtexLinearPlot,
+      gtexLog10Plot,
+      getGtexPlot,
+      gtexHasData,
+
+      tcgaLinearPlot,
+      tcgaLog10Plot,
+      getTcgaPlot,
+      tcgaHasData,
+    ]
   );
 
+  /* Get GTEx Dowload Column */
   const gtexConfigAPI = `${configAPI}/GeneExpressionGTEx_Config.json`
   const [gtexConfigDataDownloaderColumns] = useColumnConfiguration(gtexConfigAPI, true);
+
+  /* Get TCGA Dowload Column */
+  const tcgaConfigAPI = `${configAPI}/GeneExpressionTCGA_Config.json`
+  const [tcgaConfigDataDownloaderColumns] = useColumnConfiguration(tcgaConfigAPI, true);
   return (
     <SectionItem
       definition={definition}
       chipText={entity === 'evidence' ? dataTypesMap.pediatric_cancer : ''}
-      request={{ data: { gtexLinearPlot, gtexLog10Plot, gtexJson }, error, loading }}
+      request={{
+        data: { gtexJson, gtexLinearPlot, gtexLog10Plot, tcgaJson, tcgaLinearPlot, tcgaLog10Plot, },
+        error,
+        loading,
+      }}
       renderDescription={() => (
         <Description symbol={label.symbol} name={label.name} />
       )}
       renderBody={data => {
-        const { gtexJson, gtexLinearPlot, gtexLog10Plot } = data;
+        const {
+          gtexJson, gtexLinearPlot, gtexLog10Plot, tcgaJson, tcgaLinearPlot, tcgaLog10Plot,
+        } = data;
         return (
           <>
             <Tabs
@@ -113,11 +164,30 @@ function Body({
               style={{ marginBottom: '1rem' }}
               className={classes.tabs}
             >
-              <Tab value="gtexLinear" label="GTEx Linear" id="geneExpressionLinearTab" />
-              <Tab value="gtexLog10" label="GTEx Log 10" id="geneExpressionLog10Tab" />
+              {/*TODO: Disable a tab when there is no data/plot to show */}
+              <Tab
+                value="gtexLinear"
+                label="GTEx Linear"
+                disabled={!gtexHasData}
+                id="geneExpressionLinearTab" />
+              <Tab
+                value="gtexLog10"
+                label="GTEx Log 10"
+                disabled={!gtexHasData}
+                id="geneExpressionLog10Tab" />
+              <Tab
+                value="tcgaLinear"
+                label="TCGA Linear"
+                disabled={!tcgaHasData}
+                id="geneExpressionLog10Tab" />
+              <Tab
+                value="tcgaLog10"
+                label="TCGA Log 10"
+                disabled={!tcgaHasData}
+                id="geneExpressionLog10Tab" />
             </Tabs>
             {/* GTEx - Linear */}
-            {tab === 'gtexLinear' ? (
+            {gtexHasData && tab === 'gtexLinear' ? (
               <PlotContainer
                 DDRows={gtexJson}
                 DDColumns={gtexConfigDataDownloaderColumns || {}}
@@ -126,13 +196,13 @@ function Body({
               >
                 <DisplayPlot
                   imageSrc={gtexLinearPlot}
-                  imageAlt={`${imageAlt} TPM boxplot (Linear)`}
+                  imageAlt={`${gtexImageAlt} TPM boxplot (Linear)`}
                   classes={classes.image} />
               </PlotContainer>
             ) : null}
 
             {/* GTEx - Log10 */}
-            {tab === 'gtexLog10' ? (
+            {gtexHasData && tab === 'gtexLog10' ? (
               <PlotContainer
                 DDRows={gtexJson}
                 DDColumns={gtexConfigDataDownloaderColumns || {}}
@@ -141,7 +211,32 @@ function Body({
               >
                 <DisplayPlot
                   imageSrc={gtexLog10Plot}
-                  imageAlt={`${imageAlt} TPM boxplot (Lag10)`}
+                  imageAlt={`${gtexImageAlt} TPM boxplot (Lag10)`}
+                  classes={classes.image} />
+              </PlotContainer>
+            ) : null}
+            {tcgaHasData && tab === 'tcgaLinear' ? (
+              <PlotContainer
+                DDRows={tcgaJson}
+                DDColumns={tcgaConfigDataDownloaderColumns || {}}
+                DDFileStem={fileStem}
+              >
+                <DisplayPlot
+                  imageSrc={tcgaLinearPlot}
+                  imageAlt={`${tcgaImageAlt} TPM boxplot (Linear)`}
+                  classes={classes.image} />
+              </PlotContainer>
+            ) : null}
+
+            {tcgaHasData && tab === 'tcgaLog10' ? (
+              <PlotContainer
+                DDRows={tcgaJson}
+                DDColumns={tcgaConfigDataDownloaderColumns || {}}
+                DDFileStem={fileStem}
+              >
+                <DisplayPlot
+                  imageSrc={tcgaLog10Plot}
+                  imageAlt={`${tcgaImageAlt} TPM boxplot (Lag10)`}
                   classes={classes.image} />
               </PlotContainer>
             ) : null}
