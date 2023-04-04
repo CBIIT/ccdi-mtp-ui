@@ -7,7 +7,7 @@ const PlotContainer = ({
   DDRows,
   DDColumns,
   DDFileStem,
-  captionLabel = "Download data as",
+  downloadBtnLabel = 'Download data as',
   id="",
 }) => (
   <Grid container>
@@ -15,7 +15,7 @@ const PlotContainer = ({
       rows={DDRows}
       columns={DDColumns}
       fileStem={DDFileStem}
-      captionLabel={captionLabel}
+      downloadBtnLabel={downloadBtnLabel}
     />
     <Grid item xs={12} style={{ overflow: 'auto' }} id={id}>
       {children}
