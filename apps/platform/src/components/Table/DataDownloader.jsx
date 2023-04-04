@@ -151,7 +151,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-function DataDownloader({ columns, rows, fileStem, query, variables }) {
+function DataDownloader({ columns, rows, fileStem, query, variables, downloadBtnLabel = 'Download table as' }) {
   const [downloading, setDownloading] = useState(false);
   const [open, setOpen] = useState(false);
   const classes = styles();
@@ -195,7 +195,7 @@ function DataDownloader({ columns, rows, fileStem, query, variables }) {
     <>
       <Grid container alignItems="center" justifyContent="flex-end" spacing={1}>
         <Grid item>
-          <Typography variant="caption">Download table as</Typography>
+          <Typography variant="caption">{downloadBtnLabel}</Typography>
         </Grid>
         <Grid item>
           <Button
