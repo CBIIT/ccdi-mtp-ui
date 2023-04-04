@@ -29,6 +29,7 @@ function DataTable({
   variables,
   id = "",
   stickyHeader,
+  downloadBtnLabel,
 }) {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(initialPageSize);
@@ -106,6 +107,7 @@ function DataTable({
       query={query}
       variables={variables}
       stickyHeader={stickyHeader}
+      downloadBtnLabel={downloadBtnLabel}
     />
   );
 }
