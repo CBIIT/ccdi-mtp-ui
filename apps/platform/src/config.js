@@ -14,7 +14,7 @@ const config = {
   geneticsPortalUrl:
     window.injectedEnv.configGeneticsPortalUrl ?? 'https://genetics.opentargets.org',
 
-  chopRServer: window.injectedEnv.chopRServer ?? 'https://openpedcan-api.d3b.io',
+  chopRServer: window.injectedEnv.chopRServer ?? 'https://openpedcan-api-qa.d3b.io',
   frontendVersion: window.injectedEnv.frontend_version ?? '1.0.0',
   backendVersion: window.injectedEnv.backend_version ?? '1.0.0',
   mtpConfig: 'https://raw.githubusercontent.com/CBIIT/mtp-config/'+configVersion,

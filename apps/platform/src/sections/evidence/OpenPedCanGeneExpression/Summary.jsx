@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import SummaryItem from '../../../components/Summary/SummaryItem';
 
-import { getGeneDiseaseGtexJSON } from '../../../utils/externalAPI';
+import { getGeneDiseaseGtexJson, getGeneDiseaseTcgaJson } from '../../../utils/externalAPI';
 import { dataTypesMap } from '../../../dataTypes';
 import { setDisplaySettingForExternal } from '../../common/OpenPedCanGeneExpression/utils';
 
-export async function getData(id, setData, setLoading, setHasData = _ => _) {
+export async function getTcgaData(id, setData, setLoading, setHasData = () => {}) {
   const { ensgId: ensemblId, efoId } = id;
-  /********     Get JSON Data    ******** */
-  await getGeneDiseaseGtexJSON(
+  /********     Get TCGA JSON Data    ******** */
+  await getGeneDiseaseTcgaJson(
     ensemblId,
     efoId,
     resData => {
@@ -19,8 +19,27 @@ export async function getData(id, setData, setLoading, setHasData = _ => _) {
     error => {
       setHasData(false);
       setLoading(false);
+      console.log("No Data for TCGA Tab: ", error)
     },
-    'summary'
+  );
+}
+
+export async function getGtexData(id, setData, setLoading, setHasData = () => {}) {
+  const { ensgId: ensemblId, efoId } = id;
+  /********     Get GTEx JSON Data    ******** */
+  await getGeneDiseaseGtexJson(
+    ensemblId,
+    efoId,
+    resData => {
+      setData(resData);
+      setHasData(true);
+      setLoading(false);
+    },
+    error => {
+      setHasData(false);
+      setLoading(false);
+      console.log("No Data for GTEx Tab: ", error)
+    },
   );
 }
 
@@ -30,20 +49,26 @@ function Summary({
   displaySettingsForExternal,
   updateDisplaySettingsForExternal,
 }) {
-  const { ensgId: ensemblId, efoId } = id;
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [gtexLoading, setGtexLoading] = useState(true);
+  const [gtexData, setGtexData] = useState([]);
+
+  const [tcgaLoading, setTcgaLoading] = useState(true);
+  const [tcgaData, setTcgaData] = useState([]);
+
   const [error] = useState(false);
 
   useEffect(
     () => {
       /********     Get JSON Data    ********/
-      if (data.length === 0 && loading === true) {
-        getData(id, setData, setLoading);
+      if (gtexData.length === 0 && gtexLoading === true) {
+        getGtexData(id, setGtexData, setGtexLoading);
+      }
+      if (tcgaData.length === 0 && tcgaLoading === true) {
+        getTcgaData(id, setTcgaData, setTcgaLoading);
       }
       return () => {
         setDisplaySettingForExternal(
-          definition.hasData(data),
+          definition.hasData({ gtexData, tcgaData }),
           definition.id,
           displaySettingsForExternal,
           updateDisplaySettingsForExternal
@@ -51,20 +76,18 @@ function Summary({
       };
     },
     [
-      ensemblId,
-      efoId,
       id,
-      data,
-      setData,
-      setLoading,
       definition,
       displaySettingsForExternal,
       updateDisplaySettingsForExternal,
-      loading,
+      gtexData,
+      gtexLoading,
+      tcgaLoading,
+      tcgaData
     ]
   );
-
-  const request = { loading: loading, data, error: error };
+  const loading = tcgaLoading && gtexLoading;
+  const request = { loading, data: { gtexData, tcgaData }, error: error };
 
   return (
     <SummaryItem
