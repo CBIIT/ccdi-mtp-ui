@@ -16,7 +16,17 @@ const url = {
     geneAllCancerTCGA: {
       json: '/tpm/gene-all-cancer-tcga/json',
       plot: '/tpm/gene-all-cancer-tcga/plot'
-    }
+    },
+    geneAllCancerGtexDiffExp: {
+      json: '/dge/gene-all-cancer-gtex-diff-exp/json',
+      plot: '/dge/gene-all-cancer-gtex-diff-exp/plot'
+    },
+  },
+  diseasePage: {
+    topGeneDiseaseGtexDiffExp: {
+      json: '/dge/top-gene-disease-gtex-diff-exp/json',
+      plot: '/dge/top-gene-disease-gtex-diff-exp/plot'
+    },
   },
   evidencePage: {
     geneDiseaseGtex: {
@@ -26,8 +36,8 @@ const url = {
     geneDiseaseTcga: {
       json: '/tpm/gene-disease-tcga/json',
       plot: '/tpm/gene-disease-tcga/plot'
-    }
-  }
+    },
+  },
 };
 
 /*
@@ -80,6 +90,50 @@ const fetchPlot = (fullEndpoint, callback, errorHandler) => {
     });
 };
 const logError = (error) => console.log(error);
+
+/*
+  Get a table of one disease and top differentially expressed genes      : Disease Page (Gtex Diff Exp - JSON)
+*/
+export const getTopGeneDiseaseGtexDiffExpJson = async ({ id: efoId, rankGenesBy, callback, errorHandler = logError}) => {
+  const params = { efoId, rankGenesBy };
+  const endpoint = BASE_URL.concat(url.diseasePage.topGeneDiseaseGtexDiffExp.json);
+
+  fetchJson(params, endpoint, callback, errorHandler);
+};
+
+/*
+  Get a heatmap of one disease and top differentially expressed genes   : Disease Page (Gtex Diff Exp - PLOT)
+*/
+export const getTopGeneDiseaseGtexDiffExpPlot = async ( { id: efoId, rankGenesBy, includeBoxplot, boxplotYAxisScale, callback, errorHandler }) => {
+  const params = { efoId, rankGenesBy, includeBoxplot, boxplotYAxisScale, };
+  const urlParams = new URLSearchParams(params).toString();
+  const endpoint = `${BASE_URL}${url.diseasePage.topGeneDiseaseGtexDiffExp.plot}`;
+  const fullEndpoint = `${endpoint}?${urlParams}`;
+
+  fetchPlot(fullEndpoint, callback, errorHandler);
+};
+
+/*
+  Get a differential gene expression table of one gene and all diseases          : Target Page (Gtex Diff Exp - JSON)
+*/
+export const getGeneAllCancerGtexDiffExpJson = async ({ id: ensemblId, callback, errorHandler = logError}) => {
+  const params = { ensemblId };
+  const endpoint = BASE_URL.concat(url.targetPage.geneAllCancerGtexDiffExp.json);
+
+  fetchJson(params, endpoint, callback, errorHandler);
+};
+
+/*
+  Get a differential gene expression heatmap of one gene and all diseases   : Target Page (Gtex Diff Exp - PLOT)
+*/
+export const getGeneAllCancerGtexDiffExpPlot = async ( { id: ensemblId, includeBoxplot, boxplotYAxisScale, callback, errorHandler }) => {
+  const params = { ensemblId, includeBoxplot, boxplotYAxisScale, };
+  const urlParams = new URLSearchParams(params).toString();
+  const endpoint = `${BASE_URL}${url.targetPage.geneAllCancerGtexDiffExp.plot}`;
+  const fullEndpoint = `${endpoint}?${urlParams}`;
+
+  fetchPlot(fullEndpoint, callback, errorHandler);
+};
 
 /*
   Get a single-gene all-diseases all-TCGA TPM summary table          : Target Page (TCGA - JSON)
