@@ -1,3 +1,6 @@
+// MTP Section imports
+import * as DifferentialExpression from '../../sections/disease/DifferentialExpression';
+
 // Section imports
 import * as KnownDrugs from '../../sections/disease/KnownDrugs';
 import * as Ontology from '../../sections/disease/Ontology';
@@ -8,6 +11,7 @@ import * as OTProjects from '../../sections/disease/OTProjects';
 import config from '../../config';
 
 const sections = [
+  DifferentialExpression,
   Ontology,
   KnownDrugs,
   Phenotypes,
