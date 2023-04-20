@@ -181,6 +181,7 @@ query SomaticAlterationsQuery(
         totalRelapseTumorsMutatedOverRelapseTumorsInDataset
         vepImpact
         variantIdHg38
+        variantHgvsId
         variantClassification
         variantType
         dbSNPId

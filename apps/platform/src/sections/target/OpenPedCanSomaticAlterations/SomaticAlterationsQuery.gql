@@ -163,6 +163,7 @@ query SomaticAlterationsQuery($ensemblId: String!, $size: Int = 20) {
         totalRelapseTumorsMutatedOverRelapseTumorsInDataset
         vepImpact
         variantIdHg38
+        variantHgvsId
         variantClassification
         variantType
         dbSNPId
