@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Tab, Tabs, makeStyles } from '@material-ui/core';
+import React, { useEffect, useRef, useState, Fragment } from 'react';
+import { Grid, Tab, Tabs, makeStyles } from '@material-ui/core';
 import { Buffer } from 'buffer';
 import SectionItem from '../../../components/Section/SectionItem';
 import useColumnConfiguration from '../../../hooks/useColumnConfiguration';
 import DisplayPlot from './Image';
 import PlotContainer from './PlotContainer';
+import Select from '../../../components/Select';
+import DataDownloader from '../../../components/Table/DataDownloader';
 
 const useStyles = makeStyles({
   tabs: {
@@ -39,7 +41,8 @@ function Body({
   getData,
   imageAlt,
 }) {
-  console.log("|| label: ", label)
+  const [selectedOption, setSelectedOption] = useState("cgc_all_gene_up_and_down_reg_rank");
+
   const [gtexDiffExpJson, setGtexDiffExpJson] = useState([]);
   const [gtexDiffExpLinearPlot, setGtexDiffExpLinearPlot] = useState('');
   const [gtexDiffExpNoGeBoxPlot, setGtexDiffExpNoGeBoxPlot] = useState('');
@@ -69,39 +72,66 @@ function Body({
   };
   useEffect(() => {
         /********     Get GTEx Diff Exp JSON Data    ******** */
-    const rankGenesBy = 'cgc_all_gene_up_and_down_reg_rank';
+    const rankGenesBy = selectedOption;
     getData({ id, rankGenesBy, setData: setGtexDiffExpJson, setHasData: setGtexDiffExpHasData });
-  }, [getData, id]);
+  }, [getData, selectedOption, id]);
 
 
   useEffect(
     () => {
-      // By Default rank genes By cgc_all_gene_up_and_down_reg_rank
-      const rankGenesBy = 'cgc_all_gene_up_and_down_reg_rank';
-      
-      if (gtexDiffExpHasData && tab === 'nonBatchCorrected' && gtexDiffExpLinearPlot.length === 0) {
+      const boxplotYAxisScale = 'log10';
+      const rankGenesBy = selectedOption;
+
+      if (gtexDiffExpHasData && tab === 'nonBatchCorrected') {
         /********     Get GTEx Diff Exp Log10 Plot    ******** */
         const includeBoxplot = true;
-        const boxplotYAxisScale = 'log10';
         const callback = resData => handlePlotData(resData, setGtexDiffExpLinearPlot);
         setLoading(true);
         getPlot({ id, rankGenesBy, includeBoxplot, boxplotYAxisScale, callback, errorHandler: handleError });
       }
-      if (gtexDiffExpHasData && tab === 'WithoutGeBoxPlots' && gtexDiffExpNoGeBoxPlot.length === 0) {
+      if (gtexDiffExpHasData && tab === 'WithoutGeBoxPlots') {
         /********     Get GTEx Diff Exp Log10 Plot    ******** */
         const includeBoxplot = false;
-        const boxplotYAxisScale = 'log10';
         const callback = resData => handlePlotData(resData, setGtexDiffExpNoGeBoxPlot);
         setLoading(true);
         getPlot({ id, rankGenesBy, includeBoxplot, boxplotYAxisScale, callback, errorHandler: handleError });
       }
     },
-    [getPlot, gtexDiffExpHasData, gtexDiffExpLinearPlot, gtexDiffExpNoGeBoxPlot, id, tab]
+    [getPlot, selectedOption, gtexDiffExpHasData, gtexDiffExpLinearPlot, gtexDiffExpNoGeBoxPlot, id, tab]
   );
 
   /* Get GTEx DIff Exp Download Column */
   const gtexDiffExpConfigAPI = `${configAPI}/NonBatchCorrected_Config.json`
   const [configDataDownloaderColumns] = useColumnConfiguration(gtexDiffExpConfigAPI, true);
+  
+  const options = [
+    { value: "cgc_all_gene_up_reg_rank", label: "Top up-regulated genes" },
+    { value: "cgc_all_gene_down_reg_rank", label: "Top down-regulated genes" },
+    { value: "cgc_all_gene_up_and_down_reg_rank", label: "Top differentially expressed genes" },
+    { value: "cgc_pmtl_gene_up_reg_rank", label: "Top up-regulated PMTL genes" },
+    { value: "cgc_pmtl_gene_down_reg_rank", label: "Top down-regulated PMTL genes" },
+    { value: "cgc_pmtl_gene_up_and_down_reg_rank", label: "Top differentially expressed PMTL genes" }
+  ];
+  const displaySelectAndDownload = ({ gtexDiffExpJson }) => {
+    return (
+      <Fragment>
+        <Grid item xs={6} style={{justifyContent:"flex-start", border: '1px solid green', paddingTop:'5px'}}>
+        { entity === 'disease' ?
+          <Select isloading={loading} selectedOption={selectedOption} setSelectedOption={setSelectedOption} options={options} />
+          : null}
+        </Grid>
+        <Grid item xs={6} style={{justifyContent:"flex-end", border: '1px solid green'}}>
+          <DataDownloader
+              rows={gtexDiffExpJson}
+              columns={configDataDownloaderColumns}
+              fileStem={fileStem}
+              downloadBtnLabel='Download data as'
+            />
+        </Grid>
+      </Fragment>
+    )
+  }
+
   return (
     <SectionItem
       definition={definition}
@@ -114,7 +144,6 @@ function Body({
         <Description symbol={label.symbol} name={label.name} />
       )}
       renderBody={data => {
-        console.log("|| data: ", data)
         const {
           gtexDiffExpJson, gtexDiffExpLinearPlot
         } = data;
@@ -140,30 +169,27 @@ function Body({
             </Tabs>
             {/* GTEx - Linear */}
             { gtexDiffExpHasData && tab === 'nonBatchCorrected' ? (
-              <PlotContainer
-                DDRows={gtexDiffExpJson}
-                DDColumns={configDataDownloaderColumns || {}}
-                DDFileStem={fileStem}
-              >
-                <DisplayPlot
-                  imageSrc={gtexDiffExpLinearPlot}
-                  imageAlt={`${imageAlt}`}
-                  classes={classes.image} />
-              </PlotContainer>)
+              <Grid container style={{border: '0px solid black'}}>
+                {displaySelectAndDownload({ gtexDiffExpJson })}
+                <Grid item xs={12} style={{ overflow: 'auto' }} id={id}>
+                  <DisplayPlot
+                    imageSrc={gtexDiffExpLinearPlot}
+                    imageAlt={`${imageAlt}`}
+                    classes={classes.image} />
+                </Grid>
+              </Grid>)
             : null}
-
             { gtexDiffExpHasData && tab === 'WithoutGeBoxPlots' ? (
-              <PlotContainer
-                DDRows={gtexDiffExpJson}
-                DDColumns={configDataDownloaderColumns || {}}
-                DDFileStem={fileStem}
-              >
-                <DisplayPlot
-                  imageSrc={gtexDiffExpNoGeBoxPlot}
-                  imageAlt={`${imageAlt}`}
-                  classes={classes.image} />
-              </PlotContainer>
-              ) : null}
+              <Grid container style={{border: '0px solid black'}}>
+                {displaySelectAndDownload({ gtexDiffExpJson })}
+                <Grid item xs={12} style={{ overflow: 'auto' }} id={id}>
+                  <DisplayPlot
+                    imageSrc={gtexDiffExpNoGeBoxPlot}
+                    imageAlt={`${imageAlt}`}
+                    classes={classes.image} />
+                </Grid>
+              </Grid>)
+            : null }
           </>
         );
       }}
