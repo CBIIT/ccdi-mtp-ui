@@ -140,6 +140,34 @@ function Body({
   /* Get TCGA Dowload Column */
   const tcgaConfigAPI = `${configAPI}/GeneExpressionTCGA_Config.json`
   const [tcgaConfigDataDownloaderColumns] = useColumnConfiguration(tcgaConfigAPI, true);
+
+  const tabs = [
+    {
+      label: entity === 'evidence' ? 'GTEx Linear' : 'OpenPedCan Linear',
+      value: 'gtexLinear',
+      disabled: !gtexHasData,
+      id: 'geneExpressionLinearTab',
+    },
+    {
+      label: entity === 'evidence' ? 'GTEx Log 10' : 'OpenPedCan Log 10',
+      value: 'gtexLog10',
+      disabled: !gtexHasData,
+      id: 'geneExpressionLog10Tab',
+    },
+    {
+      label: entity === 'evidence' ? 'TCGA Linear' : 'OpenPedCan + Adult Linear',
+      value: 'tcgaLinear',
+      disabled: !tcgaHasData,
+      id: 'geneExpressionTcgaLinearTab',
+    },
+    {
+      label: entity === 'evidence' ? 'TCGA Log 10' : 'OpenPedCan + Adult Log 10',
+      value: 'tcgaLog10',
+      disabled: !tcgaHasData,
+      id: 'geneExpressionTcgaLog10Tab',
+    }
+  ];
+
   return (
     <SectionItem
       definition={definition}
@@ -165,28 +193,11 @@ function Body({
               className={classes.tabs}
             >
               {/*TODO: Disable a tab when there is no data/plot to show */}
-              <Tab
-                value="gtexLinear"
-                label="GTEx Linear"
-                disabled={!gtexHasData}
-                id="geneExpressionLinearTab" />
-              <Tab
-                value="gtexLog10"
-                label="GTEx Log 10"
-                disabled={!gtexHasData}
-                id="geneExpressionLog10Tab" />
-              <Tab
-                value="tcgaLinear"
-                label="TCGA Linear"
-                disabled={!tcgaHasData}
-                id="geneExpressionLog10Tab" />
-              <Tab
-                value="tcgaLog10"
-                label="TCGA Log 10"
-                disabled={!tcgaHasData}
-                id="geneExpressionLog10Tab" />
+              {tabs.map(({ label, value, disabled, id }) => (
+                <Tab key={id} value={value} label={label} disabled={disabled} id={id} />
+              ))}
             </Tabs>
-            {/* GTEx - Linear */}
+            {/* GTEx or OpenPedCan - Linear */}
             {gtexHasData && tab === 'gtexLinear' ? (
               <PlotContainer
                 DDRows={gtexJson}
@@ -201,7 +212,7 @@ function Body({
               </PlotContainer>
             ) : null}
 
-            {/* GTEx - Log10 */}
+            {/* GTEx or OpenPedCan - Log10 */}
             {gtexHasData && tab === 'gtexLog10' ? (
               <PlotContainer
                 DDRows={gtexJson}
@@ -215,6 +226,7 @@ function Body({
                   classes={classes.image} />
               </PlotContainer>
             ) : null}
+            {/* TCGA or OpenPedCan + Adult - Linear */}
             {tcgaHasData && tab === 'tcgaLinear' ? (
               <PlotContainer
                 DDRows={tcgaJson}
@@ -227,7 +239,7 @@ function Body({
                   classes={classes.image} />
               </PlotContainer>
             ) : null}
-
+            {/* TCGA or OpenPedCan + Adult - Log10 */}
             {tcgaHasData && tab === 'tcgaLog10' ? (
               <PlotContainer
                 DDRows={tcgaJson}
