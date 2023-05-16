@@ -5,42 +5,16 @@ import { getGeneDiseaseGtexJson, getGeneDiseaseTcgaJson } from '../../../utils/e
 import { dataTypesMap } from '../../../dataTypes';
 import { setDisplaySettingForExternal } from '../../common/OpenPedCanGeneExpression/utils';
 
-export async function getTcgaData(id, setData, setLoading, setHasData = () => {}) {
+export async function getTcgaData({ id, callBack, errorHandler }) {
   const { ensgId: ensemblId, efoId } = id;
   /********     Get TCGA JSON Data    ******** */
-  await getGeneDiseaseTcgaJson(
-    ensemblId,
-    efoId,
-    resData => {
-      setData(resData);
-      setHasData(true);
-      setLoading(false);
-    },
-    error => {
-      setHasData(false);
-      setLoading(false);
-      console.log("No Data for TCGA Tab: ", error)
-    },
-  );
+  await getGeneDiseaseTcgaJson(ensemblId, efoId, callBack, errorHandler);
 }
 
-export async function getGtexData(id, setData, setLoading, setHasData = () => {}) {
+export async function getGtexData({ id, callBack, errorHandler }) {
   const { ensgId: ensemblId, efoId } = id;
   /********     Get GTEx JSON Data    ******** */
-  await getGeneDiseaseGtexJson(
-    ensemblId,
-    efoId,
-    resData => {
-      setData(resData);
-      setHasData(true);
-      setLoading(false);
-    },
-    error => {
-      setHasData(false);
-      setLoading(false);
-      console.log("No Data for GTEx Tab: ", error)
-    },
-  );
+  await getGeneDiseaseGtexJson(ensemblId, efoId, callBack, errorHandler);
 }
 
 function Summary({
@@ -57,14 +31,31 @@ function Summary({
 
   const [error] = useState(false);
 
+  const callBack = (resData, setData, setLoading) => {
+    setData(resData);
+    setLoading(false);
+  }
+  const errorHandler = (error, setLoading, tabLabel='GTEx') => {
+    setLoading(false);
+    console.log(`No Data for ${tabLabel} Tab: `, error)
+  }
+
   useEffect(
     () => {
       /********     Get JSON Data    ********/
       if (gtexData.length === 0 && gtexLoading === true) {
-        getGtexData(id, setGtexData, setGtexLoading);
+        getGtexData({
+          id,
+          callBack: (resData) => callBack(resData, setGtexData, setGtexLoading),
+          errorHandler: (error) => errorHandler(error, setGtexLoading),
+        });
       }
       if (tcgaData.length === 0 && tcgaLoading === true) {
-        getTcgaData(id, setTcgaData, setTcgaLoading);
+        getTcgaData({
+          id,
+          callBack: (resData) => callBack(resData, setTcgaData, setTcgaLoading),
+          errorHandler: (error) => errorHandler(error, setTcgaLoading, 'TCGA'),
+        });
       }
       return () => {
         setDisplaySettingForExternal(
