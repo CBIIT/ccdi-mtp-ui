@@ -6,7 +6,6 @@ import { dataTypesMap } from '../../../dataTypes';
 import useColumnConfiguration from '../../../hooks/useColumnConfiguration';
 import DisplayPlot from './Image';
 import PlotContainer from './PlotContainer';
-import useOpenPedCanApi from '../../../hooks/useOpenPedCanApi';
 
 const useStyles = makeStyles({
   tabs: {
