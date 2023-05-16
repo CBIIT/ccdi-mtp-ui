@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import SummaryItem from '../../../components/Summary/SummaryItem';
 import { getGeneAllCancerJson, getGeneAllCancerTcgaJson } from '../../../utils/externalAPI';
 import { setDisplaySettingForExternal } from '../../common/OpenPedCanGeneExpression/utils';
-import usePlatformApi from '../../../hooks/usePlatformApi';
-import useOpenPedCanApi from '../../../hooks/useOpenPedCanApi';
-import { handleError } from '@apollo/client/link/http/parseAndCheckHttpResponse';
 
 export async function getTcgaData({ id: ensemblId, callBack, errorHandler }) {
   /********     Get JSON Data    ******** */
