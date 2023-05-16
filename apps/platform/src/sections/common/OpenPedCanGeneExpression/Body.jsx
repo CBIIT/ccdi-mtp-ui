@@ -6,6 +6,7 @@ import { dataTypesMap } from '../../../dataTypes';
 import useColumnConfiguration from '../../../hooks/useColumnConfiguration';
 import DisplayPlot from './Image';
 import PlotContainer from './PlotContainer';
+import useOpenPedCanApi from '../../../hooks/useOpenPedCanApi';
 
 const useStyles = makeStyles({
   tabs: {
@@ -54,9 +55,12 @@ function Body({
   const [tcgaHasData, setTcgaHasData] = useState(false);
   const [tab, setTab] = useState('gtexLinear');
 
-  // Figure out how to have gtex vs tcga loading and error
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [tcgaJsonLoading, setTcgaJsonLoading] = useState(true);
+  const [gtexJsonLoading, setGtexJsonLoading] = useState(true);
+
+  const [plotLoading, setPlotLoading] = useState(true);
+  // TODO: Handle Error better
+  const [error] = useState(false);
 
   const classes = useStyles();
   
@@ -66,52 +70,71 @@ function Body({
     const base64 = Buffer.from(resData).toString('base64');
     const imageSrc = base64;
     setPlot(imageSrc);
-    setLoading(false);
+    setPlotLoading(false);
   }
   const handleError = (error) => {
-    setLoading(false);
-    setError(true);
+    setPlotLoading(false);
+    // setError(true);
     console.log("Gene Expression widget: ", error);
   }
 
   const handleOnChange = (_, tab) => {
     return setTab(tab);
   };
+  const handleJsonData = (resData, setData, setHasData, setLoading) => {
+    setData(resData);
+    setHasData(true);
+    setLoading(false);
+  }
+  const handleJsonError = (error, setHasData, setLoading, setTab=()=>{}, tab='GTEx') => {
+    setTab()
+    setHasData(false);
+    setLoading(false);
+    console.log(`No Data for ${tab}: `, error);
+  }
   useEffect(() => {
         /********     Get GTEx JSON Data    ******** */
-    getGtexData(id, setGtexJson, () => {}, setGtexHasData);
+    getGtexData({
+      id,
+      callBack: (resData) => handleJsonData(resData, setGtexJson, setGtexHasData, setGtexJsonLoading),
+      errorHandler: (error) => handleJsonError(error, setGtexHasData, setGtexJsonLoading, ()=>setTab('tcgaLinear'))
+    });
         /********     Get TCGA JSON Data    ******** */
-    getTcgaData(id, setTcgaJson, () => {}, setTcgaHasData);
-    setTab(gtexHasData ? 'gtexLinear' : 'tcgaLinear')
-  }, [id, gtexHasData, getGtexData, getTcgaData, ]);
+    getTcgaData({
+      id,
+      callBack: (resData) => handleJsonData(resData, setTcgaJson, setTcgaHasData, setTcgaJsonLoading),
+      errorHandler: (error) => handleJsonError(error, setTcgaHasData, setTcgaJsonLoading, 'TCGA'),
+    });
+    // setTab(gtexHasData ? 'gtexLinear' : 'tcgaLinear')
+  }, [id, getGtexData, getTcgaData ]);
 
 
   useEffect(
     () => {
       if (gtexHasData && tab === 'gtexLinear' && gtexLinearPlot.length === 0) {
         /********     Get GTEx Linear Plot    ******** */
-        setLoading(true);
+        setPlotLoading(true);
         getGtexPlot(
           ...generticId, 'linear', resData => handlePlotData(resData, setGtexLinearPlot), handleError,
         );
       }
       if (gtexHasData && tab === 'gtexLog10' && gtexLog10Plot.length === 0) {
         /********     Get GTEx Log10 Plot    ******** */
-        setLoading(true);
+        setPlotLoading(true);
         getGtexPlot(
           ...generticId, 'log10', resData => handlePlotData(resData, setGtexLog10Plot), handleError,
         );
       }
       if (tcgaHasData && tab === 'tcgaLinear' && tcgaLinearPlot.length === 0) {
         /********     Get TCGA Linear Plot    ******** */
-        setLoading(true);
+        setPlotLoading(true);
         getTcgaPlot(
           ...generticId, 'linear', resData => handlePlotData(resData, setTcgaLinearPlot), handleError,
         );
       }
       if (tcgaHasData && tab === 'tcgaLog10' && tcgaLog10Plot.length === 0) {
         /********     Get TCGA Log10 Plot    ******** */
-        setLoading(true);
+        setPlotLoading(true);
         getTcgaPlot(
           ...generticId, 'log10', resData => handlePlotData(resData, setTcgaLog10Plot), handleError,
         );
@@ -167,6 +190,7 @@ function Body({
       id: 'geneExpressionTcgaLog10Tab',
     }
   ];
+  const loading = gtexJsonLoading || tcgaJsonLoading || plotLoading
 
   return (
     <SectionItem
