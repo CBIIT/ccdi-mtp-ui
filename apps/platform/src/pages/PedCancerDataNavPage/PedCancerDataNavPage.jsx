@@ -95,6 +95,13 @@ const columns = [
       Methylation === 'true' ? <GreenCheckIcon /> : null,
     comparator: (a, b) => genericComparator(a, b, 'Methylation'),
   },
+  {
+    id: 'DifferentialExpression',
+    label: 'Differential Expression',
+    renderCell: ({ DifferentialExpression }) =>
+      DifferentialExpression === 'true' ? <GreenCheckIcon /> : null,
+    comparator: (a, b) => genericComparator(a, b, 'DifferentialExpression'),
+  },
 ];
 
 function getRows(downloadData) {
@@ -110,6 +117,7 @@ function getRows(downloadData) {
       Fusion: mapping.Fusion + '',
       GeneExpression: mapping.GeneExpression + '',
       Methylation: mapping.Methylation + '',
+      DifferentialExpression: mapping.DifferentialExpression + '',
     });
   });
   return rows;

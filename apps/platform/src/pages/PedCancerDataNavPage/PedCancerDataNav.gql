@@ -10,6 +10,7 @@ query getPedCanNav($disease: String!, $geneSymbol: String!) {
       Fusion
       GeneExpression
       Methylation
+      DifferentialExpression
       id
     }
   }
