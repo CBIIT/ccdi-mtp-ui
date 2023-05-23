@@ -23,7 +23,7 @@ function Body({
   configAPI,
 }) {
   const request = useQuery(BODY_QUERY, {
-    variables: { ...variables, size: 9999 },
+    variables: { ...variables, size: 60000}, // 9999;
   });
   // Tabs under Epigenetic Modification widget
   const emTabs = ['methylationByGene', 'methylationByIsoform']

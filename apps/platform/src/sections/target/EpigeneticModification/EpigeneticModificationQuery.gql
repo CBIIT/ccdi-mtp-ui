@@ -34,7 +34,7 @@ query EpigeneticModificationQuery($ensemblId: String!, $size: Int = 20) {
     evidences(
       efoIds: []
       size: $size
-      datasourceIds: ["chop_transcript_level_methylation"]
+      datasourceIds: ["chop_isoform_level_methylation"]
     ) {
       count
       rows {

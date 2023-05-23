@@ -10,7 +10,7 @@ fragment targetEpigeneticModificationSummary on Target {
   methylationByIsoform: evidences(
     efoIds: []
     size: 0
-    datasourceIds: ["chop_transcript_level_methylation"]
+    datasourceIds: ["chop_isoform_level_methylation"]
   ) {
     count
   }

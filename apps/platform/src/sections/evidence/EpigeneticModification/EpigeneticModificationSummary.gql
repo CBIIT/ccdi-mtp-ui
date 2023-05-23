@@ -12,7 +12,7 @@ fragment evidenceEpigeneticModificationSummary on Disease {
     ensemblIds: [$ensgId]
     enableIndirect: true
     size: 0
-    datasourceIds: ["chop_transcript_level_methylation"]
+    datasourceIds: ["chop_isoform_level_methylation"]
   ) {
     count
   }

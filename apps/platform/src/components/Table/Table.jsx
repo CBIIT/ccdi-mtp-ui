@@ -52,6 +52,7 @@ const Table = ({
   variables,
   stickyHeader,
   id,
+  downloadBtnLabel,
 }) => {
   const emptyRows = pageSize - rows.length;
   const [selectedRow, setSelectedRow] = useState(0);
@@ -103,6 +104,7 @@ const Table = ({
               fileStem={dataDownloaderFileStem}
               query={query}
               variables={variables}
+              downloadBtnLabel={downloadBtnLabel}
             />
           </Grid>
         )}
