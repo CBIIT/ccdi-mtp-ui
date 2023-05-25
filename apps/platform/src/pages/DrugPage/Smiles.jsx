@@ -22,7 +22,7 @@ const styles = theme => ({
   },
   modal: {
     width: '800px',
-    margin: '130px auto 0 auto',
+    margin: '260px auto 0 auto',
   },
   modalCanvas: {
     display: 'block',
