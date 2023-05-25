@@ -21,7 +21,7 @@ const styles = theme => ({
     } 
   },
   modal: {
-    width: '800px',
+    maxWidth: '800px',
     margin: '260px auto 0 auto',
   },
   modalCanvas: {
@@ -47,7 +47,7 @@ let SmilesHelper = class extends Component {
   componentDidMount() {
     const { smiles, chemblId } = this.props;
     const smilesDrawer = new SmilesDrawer.Drawer({
-      width: 450,
+      maxWidth: 450,
       height: 240,
       padding: 10,
     });
@@ -68,7 +68,7 @@ let SmilesHelper = class extends Component {
     if (open) {
       const { smiles, chemblId } = this.props;
       const smilesDrawer = new SmilesDrawer.Drawer({
-        width: 750,
+        maxWidth: 750,
         height: 440,
         padding: 10,
       });
