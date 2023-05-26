@@ -259,8 +259,8 @@ const useStyles = makeStyles(theme => ({
 
 function CHoPPage() {
   const NUMBER_OF_TARGET = '58,867';
-  const NUMBER_OF_DISEASE = 94;
-  const NUMBER_OF_EVIDENCE = '4,746,441';
+  const NUMBER_OF_DISEASE = 64;
+  const NUMBER_OF_EVIDENCE = '3,026,066';
   const appTitle = 'Pediatric Cancer Data Navigation';
 
   // Accessing input from Target and Disease Associated Page
