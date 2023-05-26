@@ -293,9 +293,9 @@ export const contact = {
 
 export const version = {
   frontend: config.frontendVersion,
-  frontendURL: 'https://github.com/CBIIT/ppdc-otp-frontend/releases',
+  frontendURL: 'https://github.com/CBIIT/ccdi-mtp-ui/releases',
   backend: config.backendVersion,
-  backendURL: 'https://github.com/CBIIT/ppdc-otp-backend/releases',
+  backendURL: 'https://github.com/CBIIT/ccdi-mtp-backend/releases',
   changeLogPage: '/change-log',
   versionConfigURL: `${config.mtpConfig}/front-end/assets/data/version.json`,
 };
