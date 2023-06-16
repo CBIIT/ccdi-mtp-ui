@@ -1,28 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import SummaryItem from '../../../components/Summary/SummaryItem';
-import { getGeneAllCancerJSON } from '../../../utils/externalAPI';
+import { getGeneAllCancerJson, getGeneAllCancerTcgaJson } from '../../../utils/externalAPI';
 import { setDisplaySettingForExternal } from '../../common/OpenPedCanGeneExpression/utils';
 
-export async function getData(
-  ensemblId,
-  setData,
-  setLoading,
-  setHasData = _ => _
-) {
+export async function getTcgaData({ id: ensemblId, callBack, errorHandler }) {
   /********     Get JSON Data    ******** */
-  await getGeneAllCancerJSON(
-    ensemblId,
-    resData => {
-      setData(resData);
-      setHasData(true);
-      setLoading(false);
-    },
-    error => {
-      setHasData(false);
-      setLoading(false);
-    },
-    'summary'
-  );
+  await getGeneAllCancerTcgaJson(ensemblId, callBack, errorHandler);
+}
+export async function getGtexData({ id: ensemblId, callBack, errorHandler }) {
+  /********     Get JSON Data    ******** */
+  await getGeneAllCancerJson(ensemblId, callBack, errorHandler);
 }
 
 function Summary({
@@ -31,19 +18,42 @@ function Summary({
   displaySettingsForExternal,
   updateDisplaySettingsForExternal,
 }) {
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  const [gtexLoading, setGtexLoading] = useState(true);
+  const [gtexData, setGtexData] = useState([]);
+
+  const [tcgaLoading, setTcgaLoading] = useState(true);
+  const [tcgaData, setTcgaData] = useState([]);
+
   const [error] = useState(false);
 
+  const callBack = (resData, setData, setLoading) => {
+    setData(resData);
+    setLoading(false);
+  }
+  const errorHandler = (error, setLoading, tabLabel='GTEx') => {
+    setLoading(false);
+    console.log(`No Data for ${tabLabel} Tab: `, error)
+  }
   useEffect(
     () => {
       /********     Get JSON Data    ********/
-      if (data.length === 0 && loading === true) {
-        getData(id, setData, setLoading);
+      if (gtexData.length === 0 && gtexLoading === true) {
+        getGtexData({
+          id, 
+          callBack: (resData) => callBack(resData, setGtexData, setGtexLoading),
+          errorHandler: (error) => errorHandler(error, setGtexLoading)
+        });
+      }
+      if (tcgaData.length === 0 && tcgaLoading === true) {
+        getTcgaData({
+          id,
+          callBack: (resData) => callBack(resData, setTcgaData, setTcgaLoading),
+          errorHandler: (error) => errorHandler(error, setTcgaLoading, 'TCGA'),
+        });
       }
       return () => {
         setDisplaySettingForExternal(
-          definition.hasData(data),
+          definition.hasData({ gtexData, tcgaData }),
           definition.id,
           displaySettingsForExternal,
           updateDisplaySettingsForExternal
@@ -52,15 +62,19 @@ function Summary({
     },
     [
       id,
-      data,
       definition,
       displaySettingsForExternal,
       updateDisplaySettingsForExternal,
-      loading,
+      gtexData,
+      gtexLoading,
+      tcgaLoading,
+      tcgaData
     ]
   );
 
-  const request = { loading: loading, data, error: error };
+  const loading = tcgaLoading && gtexLoading;
+  const request = { loading, data: { gtexData, tcgaData }, error: error };
+
   return (
     <SummaryItem
       definition={definition}

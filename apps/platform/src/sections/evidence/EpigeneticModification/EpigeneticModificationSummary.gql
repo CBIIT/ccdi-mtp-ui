@@ -1,0 +1,19 @@
+fragment evidenceEpigeneticModificationSummary on Disease {
+  methylationByGene: evidences(
+    ensemblIds: [$ensgId]
+    enableIndirect: true
+    datasourceIds: ["chop_gene_level_methylation"]
+    size: 0
+  ) {
+    count
+  }
+
+  methylationByIsoform: evidences(
+    ensemblIds: [$ensgId]
+    enableIndirect: true
+    size: 0
+    datasourceIds: ["chop_isoform_level_methylation"]
+  ) {
+    count
+  }
+}

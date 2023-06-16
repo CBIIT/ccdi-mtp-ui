@@ -1,152 +1,212 @@
-import React, { useEffect, useState } from 'react';
-import { Tab, Tabs, Grid, makeStyles } from '@material-ui/core';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Tab, Tabs, makeStyles } from '@material-ui/core';
 import { Buffer } from 'buffer';
 import SectionItem from '../../../components/Section/SectionItem';
-import DataDownloader from '../../../components/Table/DataDownloader';
 import { dataTypesMap } from '../../../dataTypes';
 import useColumnConfiguration from '../../../hooks/useColumnConfiguration';
+import DisplayPlot from './Image';
+import PlotContainer from './PlotContainer';
+
+const useStyles = makeStyles({
+  tabs: {
+    '& .MuiTabs-indicator': {
+      color: '#5ca300',
+    },
+    '& .MuiTab-root.Mui-selected': {
+      backgroundColor: '#5ca300',
+      color: '#fff',
+    },
+    '& .MuiTab-textColorInherit': {
+      color: '#376100 ',
+      '&:hover': { backgroundColor: '#bdda99' },
+    },
+  },
+  image: {
+    minWidth: '1200px',
+    width: '100%',
+    height: 'auto',
+  },
+});
 
 function Body({
   definition,
   id,
   label,
-  getData,
-  getPlot,
-  Description,
   entity,
-  fileStem,
-  imageAlt,
+  Description,
   configAPI,
+  fileStem,
+  getGtexData,
+  getGtexPlot,
+  gtexImageAlt,
+  getTcgaData,
+  getTcgaPlot,
+  tcgaImageAlt,
 }) {
-  const [json, setJson] = useState([]);
-  const [linearPlot, setLinearPlot] = useState('');
-  const [log10Plot, setLog10Plot] = useState('');
-  const [tab, setTab] = useState('linear');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [hasData, setHasData] = useState(false);
+  const [gtexJson, setGtexJson] = useState([]);
+  const [gtexLinearPlot, setGtexLinearPlot] = useState('');
+  const [gtexLog10Plot, setGtexLog10Plot] = useState('');
+  const [gtexHasData, setGtexHasData] = useState(false);
+
+  const [tcgaJson, setTcgaJson] = useState([]);
+  const [tcgaLinearPlot, setTcgaLinearPlot] = useState('');
+  const [tcgaLog10Plot, setTcgaLog10Plot] = useState('');
+  const [tcgaHasData, setTcgaHasData] = useState(false);
+  const [tab, setTab] = useState('gtexLinear');
+
+  const [tcgaJsonLoading, setTcgaJsonLoading] = useState(true);
+  const [gtexJsonLoading, setGtexJsonLoading] = useState(true);
+
+  const [plotLoading, setPlotLoading] = useState(true);
+  // TODO: Handle Error better
+  const [error] = useState(false);
+
+  const classes = useStyles();
+  
+  const generticId = useMemo(() => entity === 'evidence' ? [id.ensgId, id.efoId] : [id], [id, entity])
+
+  const handlePlotData = (resData, setPlot) => {
+    const base64 = Buffer.from(resData).toString('base64');
+    const imageSrc = base64;
+    setPlot(imageSrc);
+    setPlotLoading(false);
+  }
+  const handleError = (error) => {
+    setPlotLoading(false);
+    // setError(true);
+    console.log("Gene Expression widget: ", error);
+  }
 
   const handleOnChange = (_, tab) => {
     return setTab(tab);
   };
+  const handleJsonData = (resData, setData, setHasData, setLoading) => {
+    setData(resData);
+    setHasData(true);
+    setLoading(false);
+  }
+  const handleJsonError = (error, setHasData, setLoading, setTab=()=>{}, tab='GTEx') => {
+    setTab()
+    setHasData(false);
+    setLoading(false);
+    console.log(`No Data for ${tab}: `, error);
+  }
+  useEffect(() => {
+        /********     Get GTEx JSON Data    ******** */
+    getGtexData({
+      id,
+      callBack: (resData) => handleJsonData(resData, setGtexJson, setGtexHasData, setGtexJsonLoading),
+      errorHandler: (error) => handleJsonError(error, setGtexHasData, setGtexJsonLoading, ()=>setTab('tcgaLinear'))
+    });
+        /********     Get TCGA JSON Data    ******** */
+    getTcgaData({
+      id,
+      callBack: (resData) => handleJsonData(resData, setTcgaJson, setTcgaHasData, setTcgaJsonLoading),
+      errorHandler: (error) => handleJsonError(error, setTcgaHasData, setTcgaJsonLoading, 'TCGA'),
+    });
+    // setTab(gtexHasData ? 'gtexLinear' : 'tcgaLinear')
+  }, [id, getGtexData, getTcgaData ]);
 
-  const useStyles = makeStyles({
-    tabs: {
-      '& .MuiTabs-indicator': {
-        color: '#5ca300',
-      },
-      '& .MuiTab-root.Mui-selected': {
-        backgroundColor: '#5ca300',
-        color: '#fff',
-      },
-      '& .MuiTab-textColorInherit': {
-        color: '#376100 ',
-        '&:hover': { backgroundColor: '#bdda99' },
-      },
-    },
-    image: {
-      minWidth: '1200px',
-      width: '100%',
-      height: 'auto',
-    },
-  });
-
-  const classes = useStyles();
 
   useEffect(
     () => {
-      const generticId = entity === 'evidence' ? [id.ensgId, id.efoId] : [id];
-      if (tab === 'linear' && linearPlot.length === 0) {
-        /********     Get Linear Plot    ******** */
-
-        setLoading(true);
-        getPlot(
-          ...generticId,
-          tab,
-          resData => {
-            const base64 = Buffer.from(resData).toString('base64');
-            const imageSrc = base64;
-            setLinearPlot(imageSrc);
-            setLoading(false);
-          },
-          error => {
-            setLoading(false);
-            setError(true);
-            console.log(error);
-          }
-        );
-      } else if (tab === 'log10' && log10Plot.length === 0) {
-        /********     Get Log10 Plot    ******** */
-
-        setLoading(true);
-        getPlot(
-          ...generticId,
-          tab,
-          resData => {
-            const base64 = Buffer.from(resData).toString('base64');
-            const imageSrc = base64;
-            setLog10Plot(imageSrc);
-            setLoading(false);
-          },
-          error => {
-            setLoading(false);
-            setError(true);
-            console.log(error);
-          }
+      if (gtexHasData && tab === 'gtexLinear' && gtexLinearPlot.length === 0) {
+        /********     Get GTEx Linear Plot    ******** */
+        setPlotLoading(true);
+        getGtexPlot(
+          ...generticId, 'linear', resData => handlePlotData(resData, setGtexLinearPlot), handleError,
         );
       }
-      return () => {
-        /********     Get JSON Data    ******** */
-        if (!hasData) getData(id, setJson, setLoading, setHasData);
-      };
+      if (gtexHasData && tab === 'gtexLog10' && gtexLog10Plot.length === 0) {
+        /********     Get GTEx Log10 Plot    ******** */
+        setPlotLoading(true);
+        getGtexPlot(
+          ...generticId, 'log10', resData => handlePlotData(resData, setGtexLog10Plot), handleError,
+        );
+      }
+      if (tcgaHasData && tab === 'tcgaLinear' && tcgaLinearPlot.length === 0) {
+        /********     Get TCGA Linear Plot    ******** */
+        setPlotLoading(true);
+        getTcgaPlot(
+          ...generticId, 'linear', resData => handlePlotData(resData, setTcgaLinearPlot), handleError,
+        );
+      }
+      if (tcgaHasData && tab === 'tcgaLog10' && tcgaLog10Plot.length === 0) {
+        /********     Get TCGA Log10 Plot    ******** */
+        setPlotLoading(true);
+        getTcgaPlot(
+          ...generticId, 'log10', resData => handlePlotData(resData, setTcgaLog10Plot), handleError,
+        );
+      }
     },
     [
-      hasData,
       tab,
-      linearPlot.length,
-      log10Plot.length,
-      id,
-      getData,
-      getPlot,
-      entity,
+      generticId,
+
+      gtexLinearPlot,
+      gtexLog10Plot,
+      getGtexPlot,
+      gtexHasData,
+
+      tcgaLinearPlot,
+      tcgaLog10Plot,
+      getTcgaPlot,
+      tcgaHasData,
     ]
   );
 
-  const columns = [
-    { id: 'x_label' },
-    { id: 'Gene_Ensembl_ID' },
-    { id: 'Gene_symbol' },
-    { id: 'PMTL' },
-    { id: 'Dataset' },
-    { id: 'Disease' },
-    { id: 'GTEx_tissue_subgroup', exportLabel: 'gtexTissueSubgroup' },
-    { id: 'EFO' },
-    { id: 'MONDO' },
+  /* Get GTEx Dowload Column */
+  const gtexConfigAPI = `${configAPI}/GeneExpressionGTEx_Config.json`
+  const [gtexConfigDataDownloaderColumns] = useColumnConfiguration(gtexConfigAPI, true);
+
+  /* Get TCGA Dowload Column */
+  const tcgaConfigAPI = `${configAPI}/GeneExpressionTCGA_Config.json`
+  const [tcgaConfigDataDownloaderColumns] = useColumnConfiguration(tcgaConfigAPI, true);
+
+  const tabs = [
     {
-      id: 'GTEx_tissue_subgroup_UBERON',
-      exportLabel: 'gtexTissueSubgroupUberon',
+      label: entity === 'evidence' ? 'GTEx Linear' : 'OpenPedCan Linear',
+      value: 'gtexLinear',
+      disabled: !gtexHasData,
+      id: 'geneExpressionLinearTab',
     },
-    { id: 'TPM_mean' },
-    { id: 'TPM_sd' },
-    { id: 'TPM_min' },
-    { id: 'TPM_25th_percentile' },
-    { id: 'TPM_median' },
-    { id: 'TPM_75th_percentile' },
-    { id: 'TPM_max' },
-    { id: 'specimen_descriptor_fill' },
-    { id: 'box_sample_count' },
+    {
+      label: entity === 'evidence' ? 'GTEx Log 10' : 'OpenPedCan Log 10',
+      value: 'gtexLog10',
+      disabled: !gtexHasData,
+      id: 'geneExpressionLog10Tab',
+    },
+    {
+      label: entity === 'evidence' ? 'TCGA Linear' : 'OpenPedCan + Adult Linear',
+      value: 'tcgaLinear',
+      disabled: !tcgaHasData,
+      id: 'geneExpressionTcgaLinearTab',
+    },
+    {
+      label: entity === 'evidence' ? 'TCGA Log 10' : 'OpenPedCan + Adult Log 10',
+      value: 'tcgaLog10',
+      disabled: !tcgaHasData,
+      id: 'geneExpressionTcgaLog10Tab',
+    }
   ];
-  const [configDataDownloaderColumns] = useColumnConfiguration(configAPI, true);
+  const loading = gtexJsonLoading || tcgaJsonLoading || plotLoading
+
   return (
     <SectionItem
       definition={definition}
-      chipText={entity === 'evidence' ? dataTypesMap.rna_expression : ''}
-      request={{ data: { linearPlot, log10Plot, json }, error, loading }}
+      chipText={entity === 'evidence' ? dataTypesMap.pediatric_cancer : ''}
+      request={{
+        data: { gtexJson, gtexLinearPlot, gtexLog10Plot, tcgaJson, tcgaLinearPlot, tcgaLog10Plot, },
+        error,
+        loading,
+      }}
       renderDescription={() => (
         <Description symbol={label.symbol} name={label.name} />
       )}
       renderBody={data => {
-        const { json, linearPlot, log10Plot } = data;
+        const {
+          gtexJson, gtexLinearPlot, gtexLog10Plot, tcgaJson, tcgaLinearPlot, tcgaLog10Plot,
+        } = data;
         return (
           <>
             <Tabs
@@ -155,56 +215,65 @@ function Body({
               style={{ marginBottom: '1rem' }}
               className={classes.tabs}
             >
-              <Tab value="linear" label="Linear" id="geneExpressionLinearTab" />
-              <Tab value="log10" label="Log 10" id="geneExpressionLog10Tab" />
+              {/*TODO: Disable a tab when there is no data/plot to show */}
+              {tabs.map(({ label, value, disabled, id }) => (
+                <Tab key={id} value={value} label={label} disabled={disabled} id={id} />
+              ))}
             </Tabs>
-
-            {tab === 'linear' ? (
-              <>
-                <Grid container>
-                  <DataDownloader
-                    rows={json}
-                    columns={configDataDownloaderColumns || columns}
-                    fileStem={fileStem}
-                    captionLabel="Download data as"
-                  />
-                  <Grid item xs={12} style={{ overflow: 'auto' }} id="geneExpressionLinear">
-                    {linearPlot === '' ? (
-                      ''
-                    ) : (
-                      <img
-                        src={`data:image/png;base64,${linearPlot}`}
-                        className={classes.image}
-                        alt={`${imageAlt} TPM boxplot (Linear)`}
-                      />
-                    )}
-                  </Grid>
-                </Grid>
-              </>
+            {/* GTEx or OpenPedCan - Linear */}
+            {gtexHasData && tab === 'gtexLinear' ? (
+              <PlotContainer
+                DDRows={gtexJson}
+                DDColumns={gtexConfigDataDownloaderColumns || {}}
+                DDFileStem={fileStem}
+                id="geneExpressionLinear"
+              >
+                <DisplayPlot
+                  imageSrc={gtexLinearPlot}
+                  imageAlt={`${gtexImageAlt} TPM boxplot (Linear)`}
+                  classes={classes.image} />
+              </PlotContainer>
             ) : null}
 
-            {tab === 'log10' ? (
-              <>
-                <Grid container>
-                  <DataDownloader
-                    rows={json}
-                    columns={configDataDownloaderColumns || columns}
-                    fileStem={fileStem}
-                    captionLabel="Download data as"
-                  />
-                  <Grid item xs={12} style={{ overflow: 'auto' }} id="geneExpressionLog10">
-                    {log10Plot === '' ? (
-                      ''
-                    ) : (
-                      <img
-                        className={classes.image}
-                        src={`data:image/png;base64,${log10Plot}`}
-                        alt={`${imageAlt} TPM boxplot (Lag10)`}
-                      />
-                    )}
-                  </Grid>
-                </Grid>
-              </>
+            {/* GTEx or OpenPedCan - Log10 */}
+            {gtexHasData && tab === 'gtexLog10' ? (
+              <PlotContainer
+                DDRows={gtexJson}
+                DDColumns={gtexConfigDataDownloaderColumns || {}}
+                DDFileStem={fileStem}
+                id="geneExpressionLog10"
+              >
+                <DisplayPlot
+                  imageSrc={gtexLog10Plot}
+                  imageAlt={`${gtexImageAlt} TPM boxplot (Lag10)`}
+                  classes={classes.image} />
+              </PlotContainer>
+            ) : null}
+            {/* TCGA or OpenPedCan + Adult - Linear */}
+            {tcgaHasData && tab === 'tcgaLinear' ? (
+              <PlotContainer
+                DDRows={tcgaJson}
+                DDColumns={tcgaConfigDataDownloaderColumns || {}}
+                DDFileStem={fileStem}
+              >
+                <DisplayPlot
+                  imageSrc={tcgaLinearPlot}
+                  imageAlt={`${tcgaImageAlt} TPM boxplot (Linear)`}
+                  classes={classes.image} />
+              </PlotContainer>
+            ) : null}
+            {/* TCGA or OpenPedCan + Adult - Log10 */}
+            {tcgaHasData && tab === 'tcgaLog10' ? (
+              <PlotContainer
+                DDRows={tcgaJson}
+                DDColumns={tcgaConfigDataDownloaderColumns || {}}
+                DDFileStem={fileStem}
+              >
+                <DisplayPlot
+                  imageSrc={tcgaLog10Plot}
+                  imageAlt={`${tcgaImageAlt} TPM boxplot (Lag10)`}
+                  classes={classes.image} />
+              </PlotContainer>
             ) : null}
           </>
         );

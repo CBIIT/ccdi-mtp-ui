@@ -17,6 +17,7 @@ function SectionMenuItem({ index, section }) {
     scroller.scrollTo(sectionId, {
       duration: 500,
       smooth: true,
+      offset: -230, // CHANGE MADE: to scroll back -(230) px
     });
   };
 

@@ -1,6 +1,8 @@
 // MTP Section imports
 import * as OpenPedCanSomaticAlterations from '../../sections/target/OpenPedCanSomaticAlterations';
 import * as OpenPedCanGeneExpression from '../../sections/target/OpenPedCanGeneExpression';
+import * as EpigeneticModification from '../../sections/target/EpigeneticModification';
+import * as DifferentialExpression from '../../sections/target/DifferentialExpression';
 
 // Section imports
 import * as BaselineExpression from '../../sections/target/Expression';
@@ -24,6 +26,8 @@ import config from '../../config';
 const sections = [
   OpenPedCanSomaticAlterations,
   OpenPedCanGeneExpression,
+  EpigeneticModification,
+  DifferentialExpression,
   KnownDrugs,
   Tractability,
   Safety,

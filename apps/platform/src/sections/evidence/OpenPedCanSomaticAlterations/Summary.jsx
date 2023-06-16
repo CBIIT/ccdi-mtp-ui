@@ -17,7 +17,7 @@ function Summary({ definition }) {
         const hasData = definition.hasData(data);
         return hasData ? 'Available' : 'no data';
       }}
-      subText={dataTypesMap.somatic_mutation}
+      subText={dataTypesMap.pediatric_cancer}
     />
   );
 }
