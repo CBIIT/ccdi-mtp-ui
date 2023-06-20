@@ -8,13 +8,13 @@ const config = {
   googleTagManagerID: window.injectedEnv.configGoogleTagManagerID ?? null,
   efoURL: 
     window.injectedEnv.configEFOURL ??
-    'https://raw.githubusercontent.com/CBIIT/mtp-config/main/front-end/ontology-inputs/22.09/diseases_efo.jsonl',
+    'https://raw.githubusercontent.com/CBIIT/mtp-config/main/front-end/ontology-inputs/22.11/diseases_efo.jsonl',
   profile: window.configProfile ?? {},
   downloadsURL: window.injectedEnv.configDownloadsURL ?? '/data/downloads.json',
   geneticsPortalUrl:
     window.injectedEnv.configGeneticsPortalUrl ?? 'https://genetics.opentargets.org',
 
-  chopRServer: window.injectedEnv.chopRServer ?? 'https://openpedcan-api.d3b.io',
+  chopRServer: 'https://openpedcan-api-qa.d3b.io',
   frontendVersion: window.injectedEnv.frontend_version ?? '1.0.0',
   backendVersion: window.injectedEnv.backend_version ?? '1.0.0',
   mtpConfig: 'https://raw.githubusercontent.com/CBIIT/mtp-config/'+configVersion,

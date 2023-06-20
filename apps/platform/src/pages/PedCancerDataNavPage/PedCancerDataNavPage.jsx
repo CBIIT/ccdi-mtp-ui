@@ -88,6 +88,20 @@ const columns = [
       GeneExpression === 'true' ? <GreenCheckIcon /> : null,
     comparator: (a, b) => genericComparator(a, b, 'GeneExpression'),
   },
+  {
+    id: 'Methylation',
+    label: 'Methylation',
+    renderCell: ({ Methylation }) =>
+      Methylation === 'true' ? <GreenCheckIcon /> : null,
+    comparator: (a, b) => genericComparator(a, b, 'Methylation'),
+  },
+  {
+    id: 'DifferentialExpression',
+    label: 'Differential Expression',
+    renderCell: ({ DifferentialExpression }) =>
+      DifferentialExpression === 'true' ? <GreenCheckIcon /> : null,
+    comparator: (a, b) => genericComparator(a, b, 'DifferentialExpression'),
+  },
 ];
 
 function getRows(downloadData) {
@@ -102,6 +116,8 @@ function getRows(downloadData) {
       CNV: mapping.CNV + '',
       Fusion: mapping.Fusion + '',
       GeneExpression: mapping.GeneExpression + '',
+      Methylation: mapping.Methylation + '',
+      DifferentialExpression: mapping.DifferentialExpression + '',
     });
   });
   return rows;
@@ -242,9 +258,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CHoPPage() {
-  const NUMBER_OF_TARGET = '40,929';
-  const NUMBER_OF_DISEASE = 63;
-  const NUMBER_OF_EVIDENCE = '1,484,790';
+  const NUMBER_OF_TARGET = '58,867';
+  const NUMBER_OF_DISEASE = 64;
+  const NUMBER_OF_EVIDENCE = '3,026,066';
   const appTitle = 'Pediatric Cancer Data Navigation';
 
   // Accessing input from Target and Disease Associated Page
@@ -547,24 +563,21 @@ function CHoPPage() {
                     Each <b> Evidence </b> page link opens a page presenting all
                     available data within the Molecular Targets Platform
                     including available pediatric cancer data associating the
-                    specific target with the specific disease
+                    specific target with the specific disease, except for Differential Expression
+                    heatmaps which can be found in Gene symbol pages and Disease pages
                   </li>
                   <li>
                     Each <b>Gene symbol </b> page link opens a page presenting
                     all available data within the Molecular Targets Platform
                     including available pediatric cancer data for the specific
-                    target
+                    target as well as Differential Expression, if available
                   </li>
                   <li>
-                    <b> Disease </b> pages linked in this table will not contain
-                    pediatric data
+                    <b>Disease </b> pages linked in this table will, for the most part, not contain
+                    pediatric data but will have pediatric Differential Expression, if available
                   </li>
-                  <li> Refining a search will query the entire database </li>
-                  <li>
-                    {' '}
-                    A maximum of 10,000 results are returned in the search
-                    results{' '}
-                  </li>
+                  <li>Refining a search will query the entire database</li>
+                  <li>A maximum of 10,000 results are returned in the search results</li>
                 </ul>
               </Grid>
             </Grid>

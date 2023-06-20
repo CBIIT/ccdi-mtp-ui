@@ -42,7 +42,7 @@ var configProfile = {
   partnerEvidenceSectionIds: ['encore', 'otCrispr', 'validationlab'],
 
   // datatypes
-  hideDataTypes: [''],
+  hideDataTypes: ['pediatric_cancer'],
   partnerDataTypes: ['ot_partner', 'ot_validation_lab'],
 
   // for datasources we only set those that are private (partner)

@@ -85,7 +85,7 @@ function Body({
   return (
     <SectionItem
       definition={definition}
-      chipText={entity === 'evidence' ? dataTypesMap.somatic_mutation : ''}
+      chipText={entity === 'evidence' ? dataTypesMap.pediatric_cancer : ''}
       request={request}
       renderDescription={() => (
         <Description symbol={label.symbol} name={label.name} />

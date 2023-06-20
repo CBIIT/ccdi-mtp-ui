@@ -2,8 +2,8 @@ export const definition = {
   id: 'openPedCanGeneExpression',
   name: 'OpenPedCan Gene Expression',
   shortName: 'GX',
-  hasData: data => {
-    return data ? data.length > 0 : false;
+  hasData: ({ gtexData, tcgaData }) => {
+    return gtexData?.length > 0 || tcgaData?.length > 0 || false;
   },
   color: '#5ca300',
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { gql } from '@apollo/client';
 
 import { createSummaryFragment } from '../../components/Summary/utils';
@@ -27,13 +27,22 @@ const DISEASE_PROFILE_QUERY = gql`
 `;
 
 function Profile({ efoId, name }) {
+  /*
+   * For Any data coming through non GraphQl API, displaySettingsForExternal will keep tract the ids
+   * of sections that has available data. This Array will be used under SectionOrderProvider to
+   * determine if a section should be render or not.
+   */
+  const [displaySettingsForExternal, setDisplaySettingsForExternal] = useState([]);
   return (
     <PlatformApiProvider
       entity="disease"
       query={DISEASE_PROFILE_QUERY}
       variables={{ efoId }}
     >
-      <SectionOrderProvider sections={sections}>
+      <SectionOrderProvider
+        sections={sections}
+        displaySettingsForExternal={displaySettingsForExternal}
+      >
         <ProfileHeader />
 
         <SummaryContainer>
@@ -43,6 +52,8 @@ function Profile({ efoId, name }) {
               id={efoId}
               label={name}
               definition={definition}
+              displaySettingsForExternal={displaySettingsForExternal}
+              updateDisplaySettingsForExternal={setDisplaySettingsForExternal}
             />
           ))}
         </SummaryContainer>

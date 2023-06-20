@@ -1,0 +1,17 @@
+fragment targetEpigeneticModificationSummary on Target {
+  methylationByGene: evidences(
+    efoIds: []
+    datasourceIds: ["chop_gene_level_methylation"]
+    size: 0
+  ) {
+    count
+  }
+
+  methylationByIsoform: evidences(
+    efoIds: []
+    size: 0
+    datasourceIds: ["chop_isoform_level_methylation"]
+  ) {
+    count
+  }
+}

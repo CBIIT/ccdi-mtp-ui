@@ -163,6 +163,7 @@ const AboutView = ({ data }) => {
     oncokbDS: false,
     gtexDS: false,
     p30PanelDS: false,
+    tcgaDS: false,
 
     pedCanDataNavDV: true,
     fdaPmtlDV: false,
@@ -473,6 +474,31 @@ const AboutView = ({ data }) => {
       </div>
     );
   };
+
+  const tcgaDataSource = () => (
+    <div className={classes.listContent}>
+      <p>
+        The Cancer Genome Atlas (TCGA), a landmark cancer genomics program, molecularly
+        characterized over 20,000 primary cancer and matched normal samples spanning 33
+        cancer types. This joint effort between NCI and the National Human Genome Research Institute
+        began in 2006, bringing together researchers from diverse disciplines and multiple
+        institutions. The data, which has already led to improvements in our ability to diagnose,
+        treat, and prevent cancer, will remain publicly available for anyone in the research
+        community to use at{' '}
+        <Link to="https://portal.gdc.cancer.gov" external>
+          Genomic Data Commons Data Portal
+          <ExternalLinkIcon />
+        </Link>.
+      </p>
+      <p>
+        SOURCE:&nbsp;
+        <Link to="https://www.cancer.gov/ccg/research/genome-sequencing/tcga" external>
+          TCGA
+          <ExternalLinkIcon />
+        </Link>
+      </p>
+    </div>
+  );
 
   const fdaPmtlDataVisualizations = () => {
     return (
@@ -1057,7 +1083,7 @@ const AboutView = ({ data }) => {
               {/* Genotype-Tissue Expression */}
               {listHeader(
                 'Genotype-Tissue Expression %acronym',
-                'GTEx',
+                'GTEx (v8)',
                 'gtexDS'
               )}
               {showHide.gtexDS && gtexDataSource()}
@@ -1070,6 +1096,15 @@ const AboutView = ({ data }) => {
                 'p30PanelDS'
               )}
               {showHide.p30PanelDS && p30PanelDataSource()}
+              <hr className={classes.listDiverHr} />
+
+              {/* TCGA */}
+              {listHeader(
+                'The Cancer Genome Atlas Program',
+                'TCGA',
+                'tcgaDS'
+              )}
+              {showHide.tcgaDS && tcgaDataSource()}
               <hr className={classes.listDiverHr} />
 
               <div className={classes.space90} />
