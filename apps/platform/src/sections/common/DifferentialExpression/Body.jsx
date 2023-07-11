@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
-import { Buffer } from 'buffer';
+// import { Buffer } from 'buffer';
 import SectionItem from '../../../components/Section/SectionItem';
 import useColumnConfiguration from '../../../hooks/useColumnConfiguration';
 import DisplayPlot from './Image';
@@ -62,8 +62,9 @@ function Body({
 
       const callback = (resData) => {
         // Convert the plot data to base64-encoded image source
-        const base64 = Buffer.from(resData).toString('base64');
-        const imageSrc = base64;
+        /*const base64 = Buffer.from(resData).toString('base64');
+        const imageSrc = base64;*/
+        const imageSrc = resData;
         // Update the plotData object with the new plot image source
         setPlotData(data => ({ ...data, [selectedOption]: { ...data[selectedOption], [tab]: imageSrc } }));
         setLoading(false);
