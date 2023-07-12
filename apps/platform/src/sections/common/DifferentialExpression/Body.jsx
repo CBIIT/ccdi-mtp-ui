@@ -50,7 +50,7 @@ function Body({
   useEffect(() => {
     // Define the plot options based on the selected tab
     const plotOptions = {
-      'nonBatchCorrected': { includeBoxplot: true },
+      'nonBatchCorrected': { includeBoxplot: false },
       'withoutGeBoxPlots': { includeBoxplot: false },
     };
     // Check if GTEx Diff Exp data is available
@@ -133,13 +133,7 @@ function Body({
       value: 'nonBatchCorrected',
       disabled: !gtexDiffExpHasData,
       id: 'nonBatchCorrected'
-    },
-    {
-      label: 'Without GE Box Plots',
-      value: 'withoutGeBoxPlots',
-      disabled: !gtexDiffExpHasData,
-      id: 'withoutGeBoxPlots',
-    },
+    }
   ]
 
   return (
