@@ -10,32 +10,32 @@ const BASE_URL = config.chopRServer;
 const url = {
   targetPage: {
     geneAllCancer: {
-      json: '/tpm/gene-all-cancer/json',
-      plot: '/tpm/gene-all-cancer/plot'
+      json: '/tpm/gene-all-cancer/plotly/json',
+      plot: '/tpm/gene-all-cancer/plotly'
     },
     geneAllCancerTCGA: {
-      json: '/tpm/gene-all-cancer-tcga/json',
-      plot: '/tpm/gene-all-cancer-tcga/plot'
+      json: '/tpm/gene-all-cancer-tcga/plotly/json',
+      plot: '/tpm/gene-all-cancer-tcga/plotly'
     },
     geneAllCancerGtexDiffExp: {
-      json: '/dge/gene-all-cancer-gtex-diff-exp/json',
-      plot: '/dge/gene-all-cancer-gtex-diff-exp/plot'
+      json: '/dge/gene-all-cancer-gtex-diff-exp/plotly/json',
+      plot: '/dge/gene-all-cancer-gtex-diff-exp/plotly'
     },
   },
   diseasePage: {
     topGeneDiseaseGtexDiffExp: {
-      json: '/dge/top-gene-disease-gtex-diff-exp/json',
-      plot: '/dge/top-gene-disease-gtex-diff-exp/plot'
+      json: '/dge/top-gene-disease-gtex-diff-exp/plotly/json',
+      plot: '/dge/top-gene-disease-gtex-diff-exp/plotly'
     },
   },
   evidencePage: {
     geneDiseaseGtex: {
-      json: '/tpm/gene-disease-gtex/json',
-      plot: '/tpm/gene-disease-gtex/plot'
+      json: '/tpm/gene-disease-gtex/plotly/json',
+      plot: '/tpm/gene-disease-gtex/plotly'
     },
     geneDiseaseTcga: {
-      json: '/tpm/gene-disease-tcga/json',
-      plot: '/tpm/gene-disease-tcga/plot'
+      json: '/tpm/gene-disease-tcga/plotly/json',
+      plot: '/tpm/gene-disease-tcga/plotly'
     },
   },
 };
@@ -76,18 +76,7 @@ const fetchJson = ( params, endpoint, callback, errorHandler ) => {
     - errorHandler: Function to handle API errors
 */
 const fetchPlot = (fullEndpoint, callback, errorHandler) => {
-  axios
-    .get(fullEndpoint, { responseType: 'arraybuffer' })
-    .then(function(response) {
-      if (response.status && response.status === 200) {
-        callback(response.data);
-      } else {
-        errorHandler('Error occurred while fetching plot.');
-      }
-    })
-    .catch(function(error) {
-      errorHandler(error);
-    });
+  callback(fullEndpoint);
 };
 const logError = (error) => console.log(error);
 
