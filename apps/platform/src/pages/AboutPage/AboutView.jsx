@@ -1356,7 +1356,7 @@ const AboutView = ({ data }) => {
               <hr className={classes.listDiverHr} />
 
 
-                 {/* OpenPedCan Differential Expression */}
+              {/* penPedCan Epigenetic Modification */}
               {listHeader('OpenPedCan Epigenetic Modification', '', 'epigeneticModification')}
               {showHide.epigeneticModification && OpenPedCanEpigeneticModification()}
               <hr className={classes.listDiverHr} />
