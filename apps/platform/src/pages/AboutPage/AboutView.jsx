@@ -696,6 +696,12 @@ const AboutView = ({ data }) => {
           calculated and displayed for each dataset. Some cancers are present in
           more than one dataset; these also have a frequency box calculated
           across all datasets and designated as “All Cohorts”.
+          </p>
+          <p>
+          Plot data with biospecimen-level TPM values is available for download 
+          in TSV or JSON formats. Rows within data downloads will only have disease
+          names, EFO, and MONDO values when describing pediatric or adult cancer 
+          data; rows for normal GTEx tissues will show these values as blank.
         </p>
         <p>
           SOURCE:{' '}
