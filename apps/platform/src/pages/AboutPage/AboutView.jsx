@@ -169,6 +169,8 @@ const AboutView = ({ data }) => {
     fdaPmtlDV: false,
     somaticAlterationsDV: false,
     geneExpressionDV: false,
+    geneDiffExpressionDV: false,
+    epigeneticModification: false,
   });
   const contactEmail = `mailto:${contact.email}`;
 
@@ -342,6 +344,7 @@ const AboutView = ({ data }) => {
       </div>
     );
   };
+
   const openPbtaDataSource = () => {
     return (
       <div className={classes.listContent}>
@@ -754,6 +757,149 @@ const AboutView = ({ data }) => {
         </p>
       </div>
     );
+  };
+
+  const openPedCanDifferentialExpression = ()=> {
+    return(
+     <div className={classes.listContent}>
+      <p>
+        The OpenPedCan Differential expression heatmaps allow 
+        visualization of expression values compared to normal 
+        values.   Non-batch corrected data is rank ordered by
+         hierarchical clustering method (or another ranking 
+          method can be chosen) and the resulting heatmap can 
+         be viewed from the Target and Gene pages.  
+      </p>
+      <p>
+        <ul>
+            <li>
+              <b>Gene page</b>
+              : The user can view non-batch corrected Differential
+               Expression heatmap where one gene in all Pediatric 
+               diseases is compared to all GTex Tissue is displayed.
+              </li>
+               <li>
+              <b>Target page</b>
+              : The user can view non-batch corrected Differential
+               Expression heatmap where top differentially expressed 
+               genes in one disease are compared to GTEx tissue. 
+                The sorting feature allows users to select how they 
+                prefer to rank-order the data.   
+              </li>
+          </ul> 
+      </p>
+      <p>
+          SOURCE:{' '}
+          <Link to={mtpLinks.openPedCan} external>
+            OpenPedCan
+            <ExternalLinkIcon />
+          </Link>
+          ,
+          <Link
+            to="https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000218.v23.p8"
+            external
+          >
+            {' '}
+            TARGET (v23)
+            <ExternalLinkIcon />
+          </Link>
+          ,
+          <Link
+            to="https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs001436.v1.p1"
+            external
+          >
+            {' '}
+            Kids First Neuroblastoma
+            <ExternalLinkIcon />
+          </Link>
+          ,
+          <Link
+            to="https://github.com/AlexsLemonade/OpenPBTA-analysis/"
+            external
+          >
+            {' '}
+            OpenPBTA for CBTN and PNOC (v21) analysis
+            <ExternalLinkIcon />
+          </Link>
+          , and
+          <Link
+            to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
+            external
+          >
+            {' '}
+            manuscript
+            <ExternalLinkIcon />
+          </Link>
+          ,
+          <Link to="https://www.oncokb.org/news#07162021" external>
+            {' '}
+            OncoKB (v3.5)
+            <ExternalLinkIcon />
+          </Link>
+        </p>
+     </div>);
+  };
+
+  const OpenPedCanEpigeneticModification   =()=>{
+    return(
+   <div className={classes.listContent}>
+        <p>The OpenPedCan methylation values were summarized only for
+         samples that have both RNA-seq expression data and methylation 
+         array data.   Quantiles and correlation with RNA-seq TPMs were 
+         calculated for each annotated methylation array probe. 
+          The data is displayed in tables from the Pediatric Data Navigation 
+          page, evidence results and can be viewed in two tabs, namely 
+          Methylation by Gene or Methylation by Isoform under the Epigenetic 
+          Widget.  </p>
+
+           <p>
+          SOURCE:{' '}
+          <Link to={mtpLinks.openPedCan} external>
+            OpenPedCan
+            <ExternalLinkIcon />
+          </Link>
+          {', '}
+          <Link
+            to="https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000218.v23.p8"
+            external
+          >
+            TARGET (v23)
+            <ExternalLinkIcon />
+          </Link>
+          {', '}
+          <Link
+            to="https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs001436.v1.p1"
+            external
+          >
+            Kids First Neuroblastoma
+            <ExternalLinkIcon />
+          </Link>
+          {', '}
+          <Link
+            to="https://github.com/AlexsLemonade/OpenPBTA-analysis/"
+            external
+          >
+            OpenPBTA for CBTN and PNOC (v21) analysis
+            <ExternalLinkIcon />
+          </Link>
+          , and
+          <Link
+            to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
+            external
+          >
+            {' '}
+            manuscript
+            <ExternalLinkIcon />
+          </Link>
+          {', '}
+          <Link to="https://www.oncokb.org/news#07162021" external>
+            OncoKB (v3.5)
+            <ExternalLinkIcon />
+          </Link>
+        </p>
+
+          </div>
+      );
   };
 
   return (
@@ -1202,6 +1348,17 @@ const AboutView = ({ data }) => {
               {/* OpenPedCan Gene Expression (GX)*/}
               {listHeader('OpenPedCan Gene Expression', '', 'geneExpressionDV')}
               {showHide.geneExpressionDV && geneExDataVisualizations()}
+              <hr className={classes.listDiverHr} />
+
+              {/* OpenPedCan Differential Expression */}
+              {listHeader('OpenPedCan Differential Expression', '', 'geneDiffExpressionDV')}
+              {showHide.geneDiffExpressionDV && openPedCanDifferentialExpression()}
+              <hr className={classes.listDiverHr} />
+
+
+                 {/* OpenPedCan Differential Expression */}
+              {listHeader('OpenPedCan Epigenetic Modification', '', 'epigeneticModification')}
+              {showHide.epigeneticModification && OpenPedCanEpigeneticModification()}
               <hr className={classes.listDiverHr} />
             </Grid>
           </Grid>
