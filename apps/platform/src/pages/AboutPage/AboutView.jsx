@@ -169,6 +169,8 @@ const AboutView = ({ data }) => {
     fdaPmtlDV: false,
     somaticAlterationsDV: false,
     geneExpressionDV: false,
+    geneDiffExpressionDV: false,
+    epigeneticModification: false,
   });
   const contactEmail = `mailto:${contact.email}`;
 
@@ -342,6 +344,7 @@ const AboutView = ({ data }) => {
       </div>
     );
   };
+
   const openPbtaDataSource = () => {
     return (
       <div className={classes.listContent}>
@@ -650,7 +653,7 @@ const AboutView = ({ data }) => {
             OpenPBTA for CBTN and PNOC (v21) analysis
             <ExternalLinkIcon />
           </Link>
-          , and
+          , 
           <Link
             to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
             external
@@ -696,6 +699,12 @@ const AboutView = ({ data }) => {
           calculated and displayed for each dataset. Some cancers are present in
           more than one dataset; these also have a frequency box calculated
           across all datasets and designated as “All Cohorts”.
+          </p>
+          <p>
+          Plot data with biospecimen-level TPM values is available for download 
+          in TSV or JSON formats. Rows within data downloads will only have disease
+          names, EFO, and MONDO values when describing pediatric or adult cancer 
+          data; rows for normal GTEx tissues will show these values as blank.
         </p>
         <p>
           SOURCE:{' '}
@@ -730,7 +739,7 @@ const AboutView = ({ data }) => {
             OpenPBTA for CBTN and PNOC (v21) analysis
             <ExternalLinkIcon />
           </Link>
-          , and
+          , 
           <Link
             to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
             external
@@ -748,6 +757,160 @@ const AboutView = ({ data }) => {
         </p>
       </div>
     );
+  };
+
+  const openPedCanDifferentialExpression = ()=> {
+    return(
+     <div className={classes.listContent}>
+      <p>
+        The OpenPedCan Differential expression heatmaps allow 
+        visualization of gene expression values in pediatric
+         cancer compared to gene expression values in normal 
+         tissue. Non-batch corrected data is rank ordered by log2 
+         fold change across GTEx tissue and then organized for 
+         display with hierarchical clustering. The resulting heatmaps 
+         can be viewed from the Target or Disease pages.
+      </p>
+      <p>
+        <ul>
+            <li>
+              <b>Target page</b>
+              : The user can view a non-batch corrected Differential 
+              Expression heatmap where one gene in all pediatric 
+              diseases is compared to all GTex tissue.
+              </li>
+               <li>
+              <b>Disease page</b>
+              : The user can view non-batch corrected Differential 
+              Expression heatmap where top differentially expressed
+               genes in one disease are compared to GTEx tissue. 
+               The sorting feature allows users to select how they
+                prefer to rank order the data, which affects the genes 
+                selected for display.  
+              </li>
+          </ul> 
+      </p>
+      <p>
+          SOURCE:{' '}
+          <Link to={mtpLinks.openPedCan} external>
+            OpenPedCan
+            <ExternalLinkIcon />
+          </Link>
+          ,
+          <Link
+            to="https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000218.v23.p8"
+            external
+          >
+            {' '}
+            TARGET (v23)
+            <ExternalLinkIcon />
+          </Link>
+          ,
+          <Link
+            to="https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs001436.v1.p1"
+            external
+          >
+            {' '}
+            Kids First Neuroblastoma
+            <ExternalLinkIcon />
+          </Link>
+          ,
+          <Link
+            to="https://github.com/AlexsLemonade/OpenPBTA-analysis/"
+            external
+          >
+            {' '}
+            OpenPBTA for CBTN and PNOC (v21) analysis
+            <ExternalLinkIcon />
+          </Link>
+          ,
+          <Link
+            to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
+            external
+          >
+            {' '}
+            manuscript
+            <ExternalLinkIcon />
+          </Link>
+          ,
+          <Link to="https://www.oncokb.org/news#07162021" external>
+            {' '}
+            OncoKB (v3.5)
+            <ExternalLinkIcon />
+          </Link>
+        </p>
+     </div>);
+  };
+
+  const OpenPedCanEpigeneticModification   =()=>{
+    return(
+   <div className={classes.listContent}>
+        <p>
+        The OpenPedCan Epigenetic Modification data 
+        summarizes samples that have both RNA-seq 
+        expression data and methylation array data.
+         Quantiles and correlation with RNA-seq TPMs
+          were calculated for each annotated methylation 
+          array probe. This display is available on 
+          both the Target and Evidence pages. The 
+          Target page display will show methylation 
+          of the Target across all pediatric cancers,
+           while the Evidence page display is filtered 
+            to only show frequencies of the Target in 
+          a specific Disease.</p>
+
+          <ul>
+            <li>Methylation by Gene: Methylation beta-values grouped by gene and gene feature</li>
+            <li>Methylation by Isoform: Methylation beta-values grouped by gene isoform</li>
+          </ul>
+           <p>
+          SOURCE:{' '}
+          <Link to={mtpLinks.openPedCan} external>
+            OpenPedCan
+            <ExternalLinkIcon />
+          </Link>
+          {', '}
+          <Link
+            to="https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000218.v23.p8"
+            external
+          >
+            TARGET (v23)
+            <ExternalLinkIcon />
+          </Link>
+          {', '}
+          <Link
+            to="https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs001436.v1.p1"
+            external
+          >
+            Kids First Neuroblastoma
+            <ExternalLinkIcon />
+          </Link>
+          {', '}
+          <Link
+            to="https://github.com/AlexsLemonade/OpenPBTA-analysis/"
+            external
+          >
+            OpenPBTA for CBTN and PNOC (v21) analysis
+            <ExternalLinkIcon />
+          </Link>
+         {', '}
+          <Link
+            to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
+            external
+          >
+            {' '}
+            manuscript
+            <ExternalLinkIcon />
+          </Link>
+          {', '}
+          <Link to="https://www.oncokb.org/news#07162021" external>
+            OncoKB (v3.5)
+            <ExternalLinkIcon />
+          </Link>
+        </p>
+
+          </div>
+      );
   };
 
   return (
@@ -1196,6 +1359,17 @@ const AboutView = ({ data }) => {
               {/* OpenPedCan Gene Expression (GX)*/}
               {listHeader('OpenPedCan Gene Expression', '', 'geneExpressionDV')}
               {showHide.geneExpressionDV && geneExDataVisualizations()}
+              <hr className={classes.listDiverHr} />
+
+              {/* OpenPedCan Differential Expression */}
+              {listHeader('OpenPedCan Differential Expression', '', 'geneDiffExpressionDV')}
+              {showHide.geneDiffExpressionDV && openPedCanDifferentialExpression()}
+              <hr className={classes.listDiverHr} />
+
+
+              {/* penPedCan Epigenetic Modification */}
+              {listHeader('OpenPedCan Epigenetic Modification', '', 'epigeneticModification')}
+              {showHide.epigeneticModification && OpenPedCanEpigeneticModification()}
               <hr className={classes.listDiverHr} />
             </Grid>
           </Grid>
