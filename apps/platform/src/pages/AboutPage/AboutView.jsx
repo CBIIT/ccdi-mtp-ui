@@ -653,7 +653,7 @@ const AboutView = ({ data }) => {
             OpenPBTA for CBTN and PNOC (v21) analysis
             <ExternalLinkIcon />
           </Link>
-          , and
+          , 
           <Link
             to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
             external
@@ -739,7 +739,7 @@ const AboutView = ({ data }) => {
             OpenPBTA for CBTN and PNOC (v21) analysis
             <ExternalLinkIcon />
           </Link>
-          , and
+          , 
           <Link
             to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
             external
@@ -764,27 +764,29 @@ const AboutView = ({ data }) => {
      <div className={classes.listContent}>
       <p>
         The OpenPedCan Differential expression heatmaps allow 
-        visualization of expression values compared to normal 
-        values.   Non-batch corrected data is rank ordered by
-         hierarchical clustering method (or another ranking 
-          method can be chosen) and the resulting heatmap can 
-         be viewed from the Target and Gene pages.  
+        visualization of gene expression values in pediatric
+         cancer compared to gene expression values in normal 
+         tissue. Non-batch corrected data is rank ordered by log2 
+         fold change across GTEx tissue and then organized for 
+         display with hierarchical clustering. The resulting heatmaps 
+         can be viewed from the Target or Disease pages.
       </p>
       <p>
         <ul>
             <li>
-              <b>Gene page</b>
-              : The user can view non-batch corrected Differential
-               Expression heatmap where one gene in all Pediatric 
-               diseases is compared to all GTex Tissue is displayed.
+              <b>Target page</b>
+              : The user can view a non-batch corrected Differential 
+              Expression heatmap where one gene in all pediatric 
+              diseases is compared to all GTex tissue.
               </li>
                <li>
-              <b>Target page</b>
-              : The user can view non-batch corrected Differential
-               Expression heatmap where top differentially expressed 
+              <b>Disease page</b>
+              : The user can view non-batch corrected Differential 
+              Expression heatmap where top differentially expressed
                genes in one disease are compared to GTEx tissue. 
-                The sorting feature allows users to select how they 
-                prefer to rank-order the data.   
+               The sorting feature allows users to select how they
+                prefer to rank order the data, which affects the genes 
+                selected for display.  
               </li>
           </ul> 
       </p>
@@ -821,7 +823,7 @@ const AboutView = ({ data }) => {
             OpenPBTA for CBTN and PNOC (v21) analysis
             <ExternalLinkIcon />
           </Link>
-          , and
+          ,
           <Link
             to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
             external
@@ -843,15 +845,24 @@ const AboutView = ({ data }) => {
   const OpenPedCanEpigeneticModification   =()=>{
     return(
    <div className={classes.listContent}>
-        <p>The OpenPedCan methylation values were summarized only for
-         samples that have both RNA-seq expression data and methylation 
-         array data.   Quantiles and correlation with RNA-seq TPMs were 
-         calculated for each annotated methylation array probe. 
-          The data is displayed in tables from the Pediatric Data Navigation 
-          page, evidence results and can be viewed in two tabs, namely 
-          Methylation by Gene or Methylation by Isoform under the Epigenetic 
-          Widget.  </p>
+        <p>
+        The OpenPedCan Epigenetic Modification data 
+        summarizes samples that have both RNA-seq 
+        expression data and methylation array data.
+         Quantiles and correlation with RNA-seq TPMs
+          were calculated for each annotated methylation 
+          array probe. This display is available on 
+          both the Target and Evidence pages. The 
+          Target page display will show methylation 
+          of the Target across all pediatric cancers,
+           while the Evidence page display is filtered 
+            to only show frequencies of the Target in 
+          a specific Disease.</p>
 
+          <ul>
+            <li>Methylation by Gene: Methylation beta-values grouped by gene and gene feature</li>
+            <li>Methylation by Isoform: Methylation beta-values grouped by gene isoform</li>
+          </ul>
            <p>
           SOURCE:{' '}
           <Link to={mtpLinks.openPedCan} external>
@@ -882,7 +893,7 @@ const AboutView = ({ data }) => {
             OpenPBTA for CBTN and PNOC (v21) analysis
             <ExternalLinkIcon />
           </Link>
-          , and
+         {', '}
           <Link
             to="https://alexslemonade.github.io/OpenPBTA-manuscript/"
             external
