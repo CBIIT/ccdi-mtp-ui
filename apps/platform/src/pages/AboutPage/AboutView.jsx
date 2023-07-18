@@ -856,12 +856,12 @@ const AboutView = ({ data }) => {
           Target page display will show methylation 
           of the Target across all pediatric cancers,
            while the Evidence page display is filtered 
-            to only show frequencies of the Target in 
+            to only show methylation of the Target in 
           a specific Disease.</p>
 
           <ul>
-            <li>Methylation by Gene: Methylation beta-values grouped by gene and gene feature</li>
-            <li>Methylation by Isoform: Methylation beta-values grouped by gene isoform</li>
+            <li><b>Methylation by Gene</b>: Methylation beta-values grouped by gene and gene feature</li>
+            <li><b>Methylation by Isoform</b>: Methylation beta-values grouped by gene isoform</li>
           </ul>
            <p>
           SOURCE:{' '}
