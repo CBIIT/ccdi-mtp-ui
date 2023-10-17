@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import NCILogoBar from '../NCILogoBar';
 import NCINavBar from '../NCINavBar';
+import ShutdownBanner from '../ShutdownBanner';
 
 const styles = (theme) => ({
   headerBar: {
@@ -13,13 +14,13 @@ const styles = (theme) => ({
     background: '#ffffff',
     position: 'fixed',
     zIndex: theme.zIndex.header,
-    paddingTop: '24px',
   },
 });
 
 const NCIHeader = ({ classes, ...props }) => {
   return (
     <div id="header" className={classes.headerBar}>
+      <ShutdownBanner />
       <NCILogoBar />
       <NCINavBar />
     </div>

@@ -13,7 +13,7 @@ const styles = (theme) => ({
     width: '100%',
   },
   gridContainer: {
-    margin: '230px 0 0 0',
+    margin: `${theme.dynamicPage.header.height} 0 0 0`,
     padding: '24px',
     width: '100%',
     flex: '1 0 auto',
