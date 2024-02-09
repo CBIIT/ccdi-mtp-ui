@@ -4,11 +4,14 @@ function DisplayPlot({ imageSrc, imageAlt, classes }){
   if (imageSrc === '') return null;
   
   return (
-    <img
-      src={`data:image/png;base64,${imageSrc}`}
-      className={classes}
-      alt={imageAlt}
-    />
+    <iframe
+      src={imageSrc}
+      title={imageAlt}
+      width= "100%"
+      height="1200px"
+      style={{border: '0px'}}
+    >
+    </iframe>
   );
 };
 

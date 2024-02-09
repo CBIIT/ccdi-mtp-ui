@@ -13,7 +13,7 @@ const styles = (theme) => ({
     background: '#ffffff',
     position: 'fixed',
     zIndex: theme.zIndex.header,
-    top: 24,
+    paddingTop: '24px',
   },
 });
 

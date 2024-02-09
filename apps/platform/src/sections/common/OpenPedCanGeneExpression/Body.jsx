@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Tab, Tabs, makeStyles } from '@material-ui/core';
-import { Buffer } from 'buffer';
+// import { Buffer } from 'buffer';
 import SectionItem from '../../../components/Section/SectionItem';
 import { dataTypesMap } from '../../../dataTypes';
 import useColumnConfiguration from '../../../hooks/useColumnConfiguration';
@@ -42,6 +42,8 @@ function Body({
   getTcgaData,
   getTcgaPlot,
   tcgaImageAlt,
+
+
 }) {
   const [gtexJson, setGtexJson] = useState([]);
   const [gtexLinearPlot, setGtexLinearPlot] = useState('');
@@ -66,9 +68,9 @@ function Body({
   const generticId = useMemo(() => entity === 'evidence' ? [id.ensgId, id.efoId] : [id], [id, entity])
 
   const handlePlotData = (resData, setPlot) => {
-    const base64 = Buffer.from(resData).toString('base64');
-    const imageSrc = base64;
-    setPlot(imageSrc);
+    /* const base64 = Buffer.from(resData).toString('base64');
+     const imageSrc = base64; */
+    setPlot(resData);
     setPlotLoading(false);
   }
   const handleError = (error) => {
