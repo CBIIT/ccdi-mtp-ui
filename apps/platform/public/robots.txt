@@ -1,2 +1,5 @@
 User-agent: * 
-Disallow:
+Disallow: /evidence/
+Disallow: /disease/
+Disallow: /target/
+Disallow: /drug/
