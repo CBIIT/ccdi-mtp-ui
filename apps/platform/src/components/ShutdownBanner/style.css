@@ -2,7 +2,8 @@
   background: #bb0e3d;
   padding: 15px;
   position: sticky;
-  z-index: 999999
+  z-index: 999999;
+  margin-bottom: 82px;
 }
 
 .nci-shutdown-banner__body {
