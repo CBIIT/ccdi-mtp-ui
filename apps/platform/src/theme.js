@@ -139,8 +139,8 @@ const theme = {
   },
   Drawer: {
     paper: {
-      marginTop: '374px', // ShutdownBanner(167), NCILogoBar(100px), NCINavBar(59px), and NavBar(48px)
-      height: 'calc(100% - 374px)',
+      marginTop: '265px', // review banner (58) ShutdownBanner(167), NCILogoBar(100px), NCINavBar(59px), and NavBar(48px)
+      height: 'calc(100% - 265px)',
     },
   },
   zIndex: {
@@ -149,12 +149,12 @@ const theme = {
     navPanel: 51000, // NavPanel (on the left side of Profile)
   },
   header: {
-    height: '326px', // ShutdownBanner(167px), NCILogoBar(100px), and NCINavBar(59px)
+    height: '217px', // review banner (58) ShutdownBanner(167px), NCILogoBar(100px), and NCINavBar(59px)
     spacing: '52px', // spacing below the header
   },
   dynamicPage: {
     header: {
-      height: '374px', // ShutdownBanner(167px), Header(207px)
+      height: '265px', // review banner (58) ShutdownBanner(167px), Header(207px)
     },
   },
 };
