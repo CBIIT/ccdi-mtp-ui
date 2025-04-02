@@ -154,7 +154,7 @@ const theme = {
   },
   dynamicPage: {
     header: {
-      height: '374px', // ShutdownBanner(167px), Header(207px)
+      height: 374, // ShutdownBanner(167px), Header(207px)
     },
   },
 };
