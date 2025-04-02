@@ -13,6 +13,7 @@ import { scroller } from 'react-scroll';
 import summaryStyles from './summaryStyles';
 import { createShortName } from './utils';
 import PartnerLockIcon from '../PartnerLockIcon';
+import theme from '../../theme';
 
 function SummaryItem({ definition, request, renderSummary, subText, id }) {
   const color = definition.color;
@@ -26,7 +27,7 @@ function SummaryItem({ definition, request, renderSummary, subText, id }) {
       duration: 500,
       delay: 100,
       smooth: true,
-      offset: -230, // CHANGE MADE: to scroll back -(230) px
+      offset: -theme.dynamicPage.header.height, // CHANGE MADE: to scroll back -(theme.dynamicPage.header.height) px
     });
   };
 

@@ -154,7 +154,7 @@ const theme = {
   },
   dynamicPage: {
     header: {
-      height: '265px', // review banner (58) ShutdownBanner(167px), Header(207px)
+      height: 265, // review banner (58) ShutdownBanner(167px), Header(207px)
     },
   },
 };
