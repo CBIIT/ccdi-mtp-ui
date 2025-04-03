@@ -10,6 +10,7 @@ import cn from '../helpers/classNameConcat';
 import { Menu } from '@material-ui/icons';
 import Close from '@material-ui/icons/Close';
 import { NavLink } from 'react-router-dom';
+import theme from '../../theme';
 
 const SmallerScreenNB = ({
   classes,
@@ -21,7 +22,7 @@ const SmallerScreenNB = ({
   anchorEl,
   setAnchorEl,
 }) => {
-  const headerHeight = 183;
+  const headerHeight = theme.staticPage.heightNumber;
   const NCINavBarHeight = 424;
 
   // NavBar will be scrollable, If the window height is smaller than the Header and NavBar height
