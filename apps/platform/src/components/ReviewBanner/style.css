@@ -700,3 +700,7 @@
 }
 
 }
+/* Custom MTP Style */
+.mtp-section {
+  min-width:825px;
+}
