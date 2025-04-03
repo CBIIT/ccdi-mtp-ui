@@ -143,8 +143,8 @@ const useStyles = makeStyles(theme => ({
     flex: '1 0 auto',
   },
   gridContainer: {
-    margin: `${theme.header.height} 0 0 0`,
-    padding: `${theme.header.spacing} 28px 60px`,
+    margin: `${theme.staticPage.height} 0 0 0`,
+    padding: `${theme.staticPage.spacing} 28px 60px`,
     color: darkerBlueColor,
     backgroundColor: generalBackGroundColor,
     fontSize: '16px',

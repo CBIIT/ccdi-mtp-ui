@@ -14,7 +14,7 @@ const styles = theme => ({
     margin: 0,
     width: '100%',
     zIndex: theme.zIndex.navbar,
-    top: theme.header.height,
+    top: theme.staticPage.height,
   },
   flex: {
     flexGrow: 1,

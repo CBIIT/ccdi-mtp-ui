@@ -137,24 +137,62 @@ const theme = {
       },
     },
   },
-  Drawer: {
-    paper: {
-      marginTop: '265px', // review banner (58) ShutdownBanner(167), NCILogoBar(100px), NCINavBar(59px), and NavBar(48px)
-      height: 'calc(100% - 265px)',
-    },
-  },
   zIndex: {
-    header: 51002, // include: NCILogoBar and NCINavBar
+    header: 51002, // Includes: NCILogoBar and NCINavBar
     navbar: 51001, // NavBar
     navPanel: 51000, // NavPanel (on the left side of Profile)
   },
-  header: {
-    height: '217px', // review banner (58) ShutdownBanner(167px), NCILogoBar(100px), and NCINavBar(59px)
-    spacing: '52px', // spacing below the header
+
+  /*  
+    =============================
+    HEADER & BANNER HEIGHTS  
+    =============================
+
+    - Banner:
+        - ReviewBanner:      58px
+        - ShutdownBanner:   167px
+
+    - Header (Total: 207px):
+        - NCILogoBar:       100px
+        - NCINavBar:         59px
+        - NavBar:            48px
+  */
+ 
+  /*  
+    =============================
+    DRAWER CONFIGURATION  
+    =============================  
+    - Positioned below ReviewBanner and Header
+    - Height dynamically adjusted based on total height
+  */
+  Drawer: {
+    paper: {
+      marginTop: '265px', // ReviewBanner (58px) + Header (207px)
+      height: 'calc(100% - 265px)',
+    },
   },
+
+  /*  
+    =============================
+    STATIC PAGE CONFIGURATION  
+    =============================  
+    - Used for pages that do NOT include NavBar (48px)
+  */
+  staticPage: {
+    height: '217px', // ReviewBanner (58px) + NCILogoBar (100px) + NCINavBar (59px)
+    spacing: '52px', // Space below the header before main content
+    heightNumber: 217, // Numeric height without 'px' for calculations
+  },
+
+  /*  
+    =============================
+    DYNAMIC PAGE CONFIGURATION  
+    =============================  
+    - Used for pages that include the full header setup
+  */
   dynamicPage: {
     header: {
-      height: 265, // review banner (58) ShutdownBanner(167px), Header(207px)
+      height: 265, // Includes: ReviewBanner(58), Header(207)
     },
   },
 };
