@@ -20,8 +20,8 @@ const useStyles = makeStyles(theme => ({
     padding: '0 0 100px 0',
   },
   molecularTargetC: {
-    margin: `${theme.header.height} 0px 0px`,
-    padding: `${theme.header.spacing} 0px 56px`,
+    margin: `${theme.staticPage.height} 0px 0px`,
+    padding: `${theme.staticPage.spacing} 0px 56px`,
     backgroundColor: '#CDE9FF',
     fontSize: '16px',
   },

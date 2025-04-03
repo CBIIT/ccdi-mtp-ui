@@ -18,10 +18,10 @@ const useStyles = makeStyles(theme => ({
     fontSize: '16px',
   },
   introContainer: {
-    marginTop: theme.header.height,
-    padding: `${theme.header.spacing} 40px 68px`,
+    marginTop: theme.staticPage.height,
+    padding: `${theme.staticPage.spacing} 40px 68px`,
     '@media (max-width: 360px)': {
-      padding: `${theme.header.spacing} 28px 68px`,
+      padding: `${theme.staticPage.spacing} 28px 68px`,
     },
   },
   changeLogSubContainer: {
