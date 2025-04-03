@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core';
 import NCILogoBar from '../NCILogoBar';
 import NCINavBar from '../NCINavBar';
 import ReviewBanner from '../ReviewBanner';
+import USABanner from '../USABanner';
 
 const styles = (theme) => ({
   headerBar: {
@@ -21,6 +22,7 @@ const NCIHeader = ({ classes, ...props }) => {
   return (
     <div id="header" className={classes.headerBar}>
       <ReviewBanner />
+      <USABanner />
       <NCILogoBar />
       <NCINavBar />
     </div>
