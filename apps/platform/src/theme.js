@@ -152,7 +152,8 @@ const theme = {
         - ReviewBanner:      58px
         - ShutdownBanner:   167px
 
-    - Header (Total: 207px):
+    - Header (Total: 253px):
+        - USABanner:         46px
         - NCILogoBar:       100px
         - NCINavBar:         59px
         - NavBar:            48px
@@ -167,8 +168,8 @@ const theme = {
   */
   Drawer: {
     paper: {
-      marginTop: '265px', // ReviewBanner (58px) + Header (207px)
-      height: 'calc(100% - 265px)',
+      marginTop: '311px', // ReviewBanner (58px) + Header (253px)
+      height: 'calc(100% - 311px)',
     },
   },
 
@@ -179,9 +180,9 @@ const theme = {
     - Used for pages that do NOT include NavBar (48px)
   */
   staticPage: {
-    height: '217px', // ReviewBanner (58px) + NCILogoBar (100px) + NCINavBar (59px)
+    height: '263px', // ReviewBanner (58px) + USABanner (46px) + NCILogoBar (100px) + NCINavBar (59px)
     spacing: '52px', // Space below the header before main content
-    heightNumber: 217, // Numeric height without 'px' for calculations
+    heightNumber: 263, // Numeric height without 'px' for calculations
   },
 
   /*  
@@ -192,7 +193,7 @@ const theme = {
   */
   dynamicPage: {
     header: {
-      height: 265, // Includes: ReviewBanner(58), Header(207)
+      height: 311, // Includes: ReviewBanner(58), Header(253)
     },
   },
 };
