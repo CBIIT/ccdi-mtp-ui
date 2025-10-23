@@ -4,6 +4,7 @@ import NCILogoBar from '../NCILogoBar';
 import NCINavBar from '../NCINavBar';
 import ReviewBanner from '../ReviewBanner';
 import USABanner from '../USABanner';
+import ShutdownBanner from '../ShutdownBanner';
 
 const styles = (theme) => ({
   headerBar: {
@@ -21,6 +22,7 @@ const styles = (theme) => ({
 const NCIHeader = ({ classes, ...props }) => {
   return (
     <div id="header" className={classes.headerBar}>
+      <ShutdownBanner />
       <ReviewBanner />
       <USABanner />
       <NCILogoBar />

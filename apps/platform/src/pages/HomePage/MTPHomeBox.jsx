@@ -5,7 +5,7 @@ import NavIcon from '../../assets/PediatricDataCancer-MenuBar-Icon.svg';
 const useStyles = makeStyles(theme => ({
   gridContainer: {
     padding: '0 28px',
-    marginTop: '132px',
+    marginTop: '432px',
     '@media (min-width: 600px)': {
       padding: '0px',
     },

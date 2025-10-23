@@ -10,18 +10,16 @@ const BannerArea = styled.div`
 
 `;
 const BannerContainer = styled.div`
+    margin: 0 auto;
+    max-width:87.5rem;
     display:flex;
     align-items:center;
-    max-width: 1800px;
     height:100%;
-    margin-left: auto;
-    margin-right: auto;
     padding-left: 2rem;
     img{
         margin-right: 14px;
     }
     .text{
-        font-family: "Open Sans";
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
