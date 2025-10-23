@@ -168,8 +168,8 @@ const theme = {
   */
   Drawer: {
     paper: {
-      marginTop: '425px', // ReviewBanner (58px) + Header (345px)
-      height: 'calc(100% - 403px)',
+      marginTop: '450px', // ReviewBanner (58px) + Header (345px)
+      height: 'calc(100% - 450px)',
     },
   },
 
@@ -180,9 +180,9 @@ const theme = {
     - Used for pages that do NOT include NavBar (48px)
   */
   staticPage: {
-    height: '380px', // ReviewBanner (58px) + USABanner (46px) + NCILogoBar (100px) + NCINavBar (59px)
+    height: '405px', // ReviewBanner (58px) + USABanner (46px) + NCILogoBar (100px) + NCINavBar (59px)
     spacing: '52px', // Space below the header before main content
-    heightNumber: 380, // Numeric height without 'px' for calculations
+    heightNumber: 405, // Numeric height without 'px' for calculations
   },
 
   /*  
@@ -193,7 +193,7 @@ const theme = {
   */
   dynamicPage: {
     header: {
-      height: 403, // Includes: ReviewBanner(58), Header(253)
+      height: 450, // Includes: ReviewBanner(58), Header(253)
     },
   },
 };
