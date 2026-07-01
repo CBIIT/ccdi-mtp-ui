@@ -23,7 +23,22 @@ import NotFoundPage from './pages/NotFoundPage';
 import PlatformApiProvider from './contexts/PlatformApiProvider';
 import SunsetNoticeModal from './components/SunsetNoticeModal';
 
-const SUNSET_NOTICE_SESSION_KEY = 'mtp.sunsetNoticeDismissed';
+const SUNSET_NOTICE_COOKIE_NAME = 'mtp_sunset_notice_dismissed';
+const SUNSET_NOTICE_COOKIE_VALUE = 'true';
+const SUNSET_NOTICE_COOKIE_MAX_AGE_SECONDS = 60 * 60 ;
+
+const getCookieValue = (name) => {
+  const cookieEntry = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith(`${name}=`));
+
+  if (!cookieEntry) return null;
+  return cookieEntry.split('=')[1] || null;
+};
+
+const setCookieValue = (name, value, maxAgeSeconds) => {
+  document.cookie = `${name}=${value}; path=/; max-age=${maxAgeSeconds}; SameSite=Lax`;
+};
 
 class App extends Component {
   state = {
@@ -32,13 +47,17 @@ class App extends Component {
 
   componentDidMount() {
     // initLocalStorage();
-    if (window.sessionStorage.getItem(SUNSET_NOTICE_SESSION_KEY) !== 'true') {
+    if (getCookieValue(SUNSET_NOTICE_COOKIE_NAME) !== SUNSET_NOTICE_COOKIE_VALUE) {
       this.setState({ showSunsetNotice: true });
     }
   }
 
   handleCloseSunsetNotice = () => {
-    window.sessionStorage.setItem(SUNSET_NOTICE_SESSION_KEY, 'true');
+    setCookieValue(
+      SUNSET_NOTICE_COOKIE_NAME,
+      SUNSET_NOTICE_COOKIE_VALUE,
+      SUNSET_NOTICE_COOKIE_MAX_AGE_SECONDS
+    );
     this.setState({ showSunsetNotice: false });
   };
 
