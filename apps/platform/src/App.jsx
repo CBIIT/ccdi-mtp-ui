@@ -21,18 +21,39 @@ import ChangeLogPage from './pages/ChangeLogPage';
 import PedCancerDataNavPage from './pages/PedCancerDataNavPage';
 import NotFoundPage from './pages/NotFoundPage';
 import PlatformApiProvider from './contexts/PlatformApiProvider';
+import SunsetNoticeModal from './components/SunsetNoticeModal';
+
+const SUNSET_NOTICE_SESSION_KEY = 'mtp.sunsetNoticeDismissed';
 
 class App extends Component {
+  state = {
+    showSunsetNotice: false,
+  };
+
   componentDidMount() {
     // initLocalStorage();
+    if (window.sessionStorage.getItem(SUNSET_NOTICE_SESSION_KEY) !== 'true') {
+      this.setState({ showSunsetNotice: true });
+    }
   }
 
+  handleCloseSunsetNotice = () => {
+    window.sessionStorage.setItem(SUNSET_NOTICE_SESSION_KEY, 'true');
+    this.setState({ showSunsetNotice: false });
+  };
+
   render() {
+    const { showSunsetNotice } = this.state;
+
     return (
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
           <PlatformApiProvider query={GLOBAL_QUERY}>
             <Router>
+              <SunsetNoticeModal
+                open={showSunsetNotice}
+                onClose={this.handleCloseSunsetNotice}
+              />
               <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/search" component={SearchPage} />
